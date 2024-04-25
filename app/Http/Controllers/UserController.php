@@ -9,18 +9,20 @@ use App\Http\Controllers\Redirect;
 use App\Models\User;
 use App\Models\Employeleave;
 use Illuminate\Support\Facades\Auth;
+use App\Models\employee_attendence_time;
+use Illuminate\Support\Facades\Date;
 
 class UserController extends Controller
 {
     public function index()
     {
-        Session::put('role', ''); 
+        Session::put('role', '');
         return view('auth.login');
     }
 
     public function customLogin(Request $request)
     {
-       $validator =  $request->validate([
+        $validator = $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
@@ -28,7 +30,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             Session::put('role', 'user');
             return redirect()->intended('dashboard')
-                        ->withSuccess('Signed in');
+                ->withSuccess('Signed in');
         }
         $validator['emailPassword'] = 'Email address or password is incorrect.';
         return redirect("user/login")->withErrors($validator);
@@ -42,60 +44,259 @@ class UserController extends Controller
     }
 
     public function customRegistration(Request $request)
-    {  
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
-           
+
         $data = $request->all();
         $check = $this->create($data);
-         
+
         return redirect("dashboard")->withSuccess('You have signed-in');
     }
 
 
     public function create(array $data)
     {
-      return User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password'])
-      ]);
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
     }
 
     public function dashboard()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return view('dashboard');
         }
-  
+
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
     public function applyLeave()
     {
-       return view('user.employeeLeave');
+        return view('user.employeeLeave');
     }
+
+    public function attendence_time()
+    {
+        return view('user.attendenceTime');
+    }
+
+    public function attendence()
+    {
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        $time = employee_attendence_time::where('user_id', $userId)->whereDate('created_at', $today)->latest()->first();
+        if ($time) {
+            $currentTime = Date::now()->format('Y-m-d H:i:s');
+            $updatetime = employee_attendence_time::where('user_id', $userId)->whereDate('created_at', $today)->latest()->first();
+            $updatetime->in_time = $currentTime;
+            if ($updatetime->update()) {
+                echo "Again Login Successfully";
+            }
+
+        } else {
+            $currentTime = Date::now()->format('Y-m-d H:i:s');
+            $model = new employee_attendence_time;
+            $model->user_id = $userId;
+            $model->in_time = $currentTime;
+            $model->out_time = $currentTime;
+            if ($model->save()) {
+                echo "Login Successfully";
+            }
+        }
+    }
+
+    public function time_pause()
+    {
+        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        // Retrieve the latest attendance time record for the current user
+        $time = employee_attendence_time::where('user_id', $userId)
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->first();
+
+        if ($time) {
+            $start_time = $time->in_time;
+
+            // Calculate time difference
+            $time_difference = $currentTime->diff($start_time);
+
+            // Extract hours and minutes
+            $hours = $time_difference->h + ($time_difference->days * 24);
+            $minutes = $time_difference->i;
+
+            // Calculate total minutes worked
+            $total_minutes = ($hours * 60) + $minutes;
+
+            // Convert total_minutes to hours and minutes format
+            $total_hours = floor($total_minutes / 60);
+            $total_minutes = $total_minutes % 60;
+
+            // Format total_hours and total_minutes
+            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
+            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
+
+            // Update out time and total hours in the attendance record
+            $time->out_time = $currentTime;
+
+            if ($time->total_hours != '0') {
+                list($prev_hours, $prev_minutes) = explode(':', $time->total_hours);
+                $total_hours += (int) $prev_hours;
+                $total_minutes += (int) $prev_minutes;
+            }
+
+            // Adjust hours if minutes exceed 60
+            $total_hours += floor($total_minutes / 60);
+            $total_minutes = $total_minutes % 60;
+
+            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
+            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
+
+            $time->total_hours = $formatted_total_hours . ':' . $formatted_total_minutes;
+
+            if ($time->save()) {
+                echo "Logout Successfully";
+            } else {
+                echo "Failed to update attendance record";
+            }
+        } else {
+            echo "No attendance record found for the user";
+        }
+    }
+
+
+
+    public function time_stop()
+    {
+        
+        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        // Retrieve the latest attendance time record for the current user
+        $time = employee_attendence_time::where('user_id', $userId)
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->first();
+
+        if ($time) {
+            $start_time = $time->in_time;
+
+            // Calculate time difference
+            $time_difference = $currentTime->diff($start_time);
+
+            // Extract hours and minutes
+            $hours = $time_difference->h + ($time_difference->days * 24);
+            $minutes = $time_difference->i;
+
+            // Calculate total minutes worked
+            $total_minutes = ($hours * 60) + $minutes;
+
+            // Convert total_minutes to hours and minutes format
+            $total_hours = floor($total_minutes / 60);
+            $total_minutes = $total_minutes % 60;
+
+            // Format total_hours and total_minutes
+            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
+            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
+
+            // Update out time and total hours in the attendance record
+            $time->out_time = $currentTime;
+
+            if ($time->total_hours != '0') {
+                list($prev_hours, $prev_minutes) = explode(':', $time->total_hours);
+                $total_hours += (int) $prev_hours;
+                $total_minutes += (int) $prev_minutes;
+            }
+
+            // Adjust hours if minutes exceed 60
+            $total_hours += floor($total_minutes / 60);
+            $total_minutes = $total_minutes % 60;
+
+            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
+            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
+
+            $time->total_hours = $formatted_total_hours . ':' . $formatted_total_minutes;
+
+            if ($time->save()) {
+                echo "Logout Successfully";
+            } else {
+                echo "Failed to update attendance record";
+            }
+        } else {
+            echo "No attendance record found for the user";
+        }
+    }
+
     public function leave(Request $request)
-    {  
+    {
         $request->validate([
             'title' => 'required',
             'date' => 'required',
             'reason' => 'required',
         ]);
-           
-        $data = $request->all();
-        $data['user_id']= Auth::id();
-        $leave = Employeleave::create($data);
-        redirect()->back()->with('leavemessage',"Leave Apply Successfully");
-       }
 
-    public function signOut() {
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $leave = Employeleave::create($data);
+        return redirect("user/apply-leave")->with('leavemessage', 'Apply Leave Successfully');
+
+
+    }
+
+    public function profile()
+    {
+        $userId = Auth::id();
+        $userdetail = User::find($userId);
+       
+        return view('user.profile',compact('userdetail'));
+    }
+
+    public function profile_update(Request $request)
+    {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // adjust max size as needed
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('user_profile'), $imageName);
+          }
+          if ($request->hasFile('image')) {
+          $id =  Auth::id();
+          $user = User::find($id);
+          $user->name = $request->name;
+          $user->email = $request->email;
+          $user->phone = $request->phone;
+          $user->image = $imageName;
+          $user->update();
+          }else{
+             $id =  Auth::id();
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->update();
+          }
+          return redirect()->back()->with('success','Profile Updated Successfully');
+     
+    }
+
+
+    public function signOut()
+    {
         Session::flush();
         Auth::logout();
-  
         return Redirect('user/login');
     }
 }

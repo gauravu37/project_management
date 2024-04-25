@@ -11,13 +11,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">User Table</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Employees Table</h1>
                     <p class="mb-4"></p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">User Table</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Employees Table</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -30,14 +30,7 @@
                                             <th>Action</th>
                                          </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Sr No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
+                                   
                                     <tbody>
                                        @php $i=0; @endphp
                                         @foreach($user as $users) 

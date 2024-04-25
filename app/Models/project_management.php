@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employeleave extends Model
+class project_management extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id',
-        'title',
-        'date',
-        'reason',
-        'leave_status',
-        'status',
-        'feedback'
+        'project_name',
+        'client_name',
+        'total_hours',
+        'payment'
+        
     ];
+
 }

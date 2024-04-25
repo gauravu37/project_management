@@ -24,6 +24,8 @@ return array(
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Employeleave' => $baseDir . '/app/Models/Employeleave.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\employee_attendence_time' => $baseDir . '/app/Models/employee_attendence_time.php',
+    'App\\Models\\project_management' => $baseDir . '/app/Models/project_management.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

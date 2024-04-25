@@ -1,13 +1,15 @@
-    <!-- Page Wrapper -->
+   
+  
+   <!-- Page Wrapper -->
     <div id="wrapper">
         @if(Session::get('role') == 'admin')
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('dashboard')}}">
+                <div class="sidebar-brand-icon">
+                <img width=50px;  src="{{asset('assets/img/companylogo.png')}}" >
                 </div>
                 <div class="sidebar-brand-text mx-3">Pronto Admin <sup></sup></div>
             </a>
@@ -27,39 +29,21 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('users')}}">
+                <a class="nav-link" href="{{route('employees')}}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Employees</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('employees-time')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Employees Time</span></a>
+            </li>
+
+
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#leave"
@@ -71,10 +55,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('request-leave') }}">Request</a>
                         <a class="collapse-item" href="{{ route('approved-leave') }}">Approved</a>
+                        <a class="collapse-item" href="{{ route('reject-leave') }}">Reject</a>
                         
                     </div>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('project-management')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Projects Management</span></a>
+            </li>
+
 
              <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -87,8 +79,79 @@
             <!-- Sidebar Message -->
            
         </ul>
-        @else
+    @elseif(Session::get('role') == 'hr')
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('dashboard')}}">
+            <div class="sidebar-brand-icon">
+            <img width=50px;  src="{{asset('assets/img/companylogo.png')}}" >
+            </div>
+            <div class="sidebar-brand-text mx-3">Pronto Admin <sup></sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('dashboard') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('employees')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Employees</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('employees-time')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Employees Time</span></a>
+        </li>
+
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#leave"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Employee Leave</span>
+            </a>
+            <div id="leave" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('request-leave') }}">Request</a>
+                    <a class="collapse-item" href="{{ route('approved-leave') }}">Approved</a>
+                    <a class="collapse-item" href="{{ route('reject-leave') }}">Reject</a>
+                    
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+        <!-- Sidebar Message -->
+
+        </ul>
+
+
+    @else
+      
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -114,18 +177,11 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+           
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-             </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                <a class="nav-link" href="{{route('user/attendence-time')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Attendence Time</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
@@ -320,7 +376,8 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
+                        @if(Session::get('role') == 'admin')
+                       
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -352,7 +409,140 @@
                             </div>
                         </li>
 
+                        @elseif(Session::get('role') == 'hr')
+                       
+                       <!-- Nav Item - User Information -->
+                       <li class="nav-item dropdown no-arrow">
+                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                               <img class="img-profile rounded-circle"
+                                   src="{{asset('assets/img/undraw_profile.svg')}}">
+                           </a>
+                           <!-- Dropdown - User Information -->
+                           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                               aria-labelledby="userDropdown">
+                               <a class="dropdown-item" href="#">
+                                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                   Profile
+                               </a>
+                               <a class="dropdown-item" href="#">
+                                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                   Settings
+                               </a>
+                               <a class="dropdown-item" href="#">
+                                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                   Activity Log
+                               </a>
+                               <div class="dropdown-divider"></div>
+                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                   Logout
+                               </a>
+                           </div>
+                       </li>
+
+                        @else
+                        
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" onclick="toggleDiv()"  id="userDropdowns" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php 
+                                $userId = Auth::id();
+                                $userdetail = App\Models\User::where(['id' => $userId])->first();?>
+                                @if($userdetail->name) 
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$userdetail->name}}</span>
+                                @else
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                @endif
+                                @if($userdetail->image) 
+                                    <img class="img-profile rounded-circle"  src="{{asset('assets/user_profile/' . $userdetail->image)}}">
+                                @else
+                                     <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile.svg')}}">
+                                @endif
+                              </a>
+                           
+
+
+                            <!-- Dropdown - User Information -->
+                            <div style="display: none;"class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                id="setting" aria-labelledby="userDropdowns">
+                                <a class="dropdown-item" href="{{url('user/profile')}}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{url('signout')}}" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                        @endif
+
                     </ul>
 
                 </nav>
                 <!-- End of Topbar -->
+                @if(Session::get('role') == 'admin')
+
+                 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{{url('admin-signout')}}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{{url('signout')}}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endif
+
+    <script>
+    // JavaScript function to toggle div visibility
+    function toggleDiv() {
+        var div = document.getElementById("setting");
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    }
+</script>
