@@ -166,7 +166,7 @@
                                                         $userdetail = App\Models\User::where(['id' => $userId])->first();?>
                                                         @if($userdetail->image)
                                                             <img class="img-profile rounded-circle" width="100" height="100"
-                                                                src="{{asset('assets/user_profile/'.$userdetail->image)}}">
+                                                                src="{{asset('user_profile/'.$userdetail->image)}}">
                                                         @endif
 
                                                     </div>

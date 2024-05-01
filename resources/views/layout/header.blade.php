@@ -456,7 +456,7 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 @endif
                                 @if($userdetail->image) 
-                                    <img class="img-profile rounded-circle"  src="{{asset('assets/user_profile/' . $userdetail->image)}}">
+                                    <img class="img-profile rounded-circle"  src="{{asset('user_profile/' . $userdetail->image)}}">
                                 @else
                                      <img class="img-profile rounded-circle" src="{{asset('assets/img/undraw_profile.svg')}}">
                                 @endif

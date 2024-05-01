@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function customLogin(Request $request)
     {
-        $validator = $request->validate([
+ $validator = $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
@@ -33,7 +33,7 @@ class UserController extends Controller
                 ->withSuccess('Signed in');
         }
         $validator['emailPassword'] = 'Email address or password is incorrect.';
-        return redirect("user/login")->withErrors($validator);
+        return redirect("/")->withErrors($validator);
     }
 
 
@@ -83,7 +83,16 @@ class UserController extends Controller
 
     public function attendence_time()
     {
-        return view('user.attendenceTime');
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        // Retrieve the latest attendance time record for the current user
+        $time = employee_attendence_time::where('user_id', $userId)
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->first();
+      
+        return view('user.attendenceTime',compact('time'));
     }
 
     public function attendence()
@@ -101,6 +110,7 @@ class UserController extends Controller
             }
 
         } else {
+        
             $currentTime = Date::now()->format('Y-m-d H:i:s');
             $model = new employee_attendence_time;
             $model->user_id = $userId;
@@ -110,6 +120,45 @@ class UserController extends Controller
                 echo "Login Successfully";
             }
         }
+    }
+
+
+    public function time_start()
+    {
+      
+        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
+        $userId = Auth::id();
+        $today = now()->toDateString();
+        $time = employee_attendence_time::where('user_id', $userId)
+        ->whereDate('created_at', $today)
+        ->latest()
+        ->first();
+       
+        if ($time) {
+            if($time->login_status == '0'){
+            $time->user_id = $userId;
+            $time->in_time = $currentTime;
+            if ($time->save()) {
+                echo "Again Login Successfully";
+            }
+        }else{
+            echo "Already Login";
+        }
+            }else{
+                $model = new employee_attendence_time;
+                $model->user_id = $userId;
+                $model->in_time = $currentTime;
+                $model->out_time = $currentTime;
+                $model->login_status = '1';
+                if ($model->save()) {
+                    echo "Login Successfully";
+                }
+            }
+       
+        
+       
+
+      
     }
 
     public function time_pause()
@@ -162,9 +211,9 @@ class UserController extends Controller
             $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
 
             $time->total_hours = $formatted_total_hours . ':' . $formatted_total_minutes;
-
+            $time->in_time =  $currentTime;
             if ($time->save()) {
-                echo "Logout Successfully";
+                echo "logout successfully";
             } else {
                 echo "Failed to update attendance record";
             }

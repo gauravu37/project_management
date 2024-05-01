@@ -26,6 +26,11 @@ Route::get('user/apply-leave', [UserController::class, 'applyLeave'])->name('use
 Route::post('user/leave', [UserController::class, 'leave'])->name('user/leave');
 Route::get('user/attendence-time', [UserController::class, 'attendence_time'])->name('user/attendence-time');
 Route::post('user/attendence', [UserController::class, 'attendence'])->name('user/attendence');
+
+
+Route::post('user/time-start', [UserController::class, 'time_start'])->name('user/time-start');
+
+
 Route::post('user/time-pause', [UserController::class, 'time_pause'])->name('user/time-pause');
 Route::post('user/time-stop', [UserController::class, 'time_stop'])->name('user/time-stop');
 Route::get('user/profile', [UserController::class, 'profile'])->name('user/profile');
@@ -48,5 +53,10 @@ Route::get('add-project', [AdminController::class, 'add_project']);
 Route::post('add', [AdminController::class, 'addproject']);
 Route::get('edit-project/{id}', [AdminController::class, 'edit_project']);
 Route::post('update-project', [AdminController::class, 'updateproject']);
-
 Route::get('delete-project/{id}', [AdminController::class, 'delete_project']);
+
+Route::get('add-employee', [AdminController::class, 'add_employee']);
+Route::post('add-employee-detail', [AdminController::class, 'add_employee_detail']);
+Route::get('delete-employee/{id}', [AdminController::class, 'delete_employee']);
+Route::get('edit-employee/{id}', [AdminController::class, 'edit_employee']);
+Route::post('update-employee', [AdminController::class, 'update_employee']);

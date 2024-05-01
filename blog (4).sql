@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2024 at 09:46 AM
+-- Generation Time: May 01, 2024 at 12:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,6 +57,7 @@ CREATE TABLE `employee_attendence_times` (
   `in_time` timestamp NULL DEFAULT NULL,
   `out_time` timestamp NULL DEFAULT NULL,
   `total_hours` varchar(255) DEFAULT '0',
+  `login_status` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -65,9 +66,8 @@ CREATE TABLE `employee_attendence_times` (
 -- Dumping data for table `employee_attendence_times`
 --
 
-INSERT INTO `employee_attendence_times` (`id`, `user_id`, `in_time`, `out_time`, `total_hours`, `created_at`, `updated_at`) VALUES
-(45, 5, '2024-04-22 12:04:35', '2024-04-22 12:21:38', '00:17', '2024-04-22 12:04:35', '2024-04-22 12:21:38'),
-(46, 5, '2024-04-23 07:46:46', '2024-04-23 07:46:46', '0', '2024-04-23 07:46:46', '2024-04-23 07:46:46');
+INSERT INTO `employee_attendence_times` (`id`, `user_id`, `in_time`, `out_time`, `total_hours`, `login_status`, `created_at`, `updated_at`) VALUES
+(74, 12, '2024-04-29 06:43:25', '2024-04-29 06:43:25', '0', 1, '2024-04-29 06:43:25', '2024-04-29 06:43:25');
 
 -- --------------------------------------------------------
 
@@ -219,7 +219,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `image`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'himanshu', 'himanshu@gmail.com', '7988142524', '1713509813_662215b50f7dd.jpg', NULL, '$2y$10$YLwO6Z8PN3PbYbep15BSjOqS1.afb/S6RgU2lTAPwnnSBPXFiRJpC', NULL, '2024-02-13 01:33:35', '2024-04-19 07:35:46');
+(12, 'himanshu bakshi', 'himanshubakshi10@gmail.com', '8950891659', '1714122910_662b709e2d5b8.jpg', NULL, '$2y$10$/Qfl6EW3yhJ/N2lRdmEjce/UsTuFlcuXxd3VjBKNlgoCWqwmT8Je6', NULL, '2024-04-26 09:15:10', '2024-04-26 09:25:40');
 
 --
 -- Indexes for dumped tables
@@ -297,7 +297,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `employee_attendence_times`
 --
 ALTER TABLE `employee_attendence_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `employeleaves`
@@ -333,7 +333,7 @@ ALTER TABLE `project_managements`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

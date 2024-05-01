@@ -67,15 +67,20 @@
                           <div class="card-body">
                             <div class="table-responsive">
                             <div class="main"> 
-                            <div class="timer-circle" 
+                            <!-- <div class="timer-circle" 
                                 id="timer">00:00:00
-                            </div> 
+                            </div>  -->
                            
                             <button id="startBtn">Start</button>
-                            <button id="pauseBtn">Pause</button>
+                            <!-- <button id="pauseBtn">Pause</button> -->
                             <button id="stopBtn">Stop</button>
                             </div>
                         </div>
+                        @if($time)
+                        <h2>Total Time:<span id="totaltime"> <?php if($time->total_hours){echo $time->total_hours; }else{ echo "0"; } ?></span> </h6>
+                        @else
+                        <h2>Total Time:0</h2>
+                        @endif
                     </div>
 
                 </div>
@@ -130,31 +135,30 @@
     let hours = 0;
     let paused = false;
     function startTimer() {
-        if (paused) {
-        paused = false; // Resume timer
-    } else {
-        timerInterval = setInterval(function() {
-            seconds++;
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
-                if (minutes >= 60) {
-                    minutes = 0;
-                    hours++;
-                }
+        
+        $.ajaxSetup({
+             headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      }
+                    });
+    $.ajax({
+            type: 'POST',
+            url: "{{ url('user/time-start') }}",
+            data: {
+                time: 0
+            },
+            success: function(response) {
+           alert(response);
+            },
+            error: function(error) {
+                console.log(error.responseJSON);
+                alert('Error occurred while sending timer value.');
             }
-            document.getElementById('timer').innerText =
-                (hours < 10 ? "0" + hours : hours) + ":" +
-                (minutes < 10 ? "0" + minutes : minutes) + ":" +
-                (seconds < 10 ? "0" + seconds : seconds);
-        }, 1000);
-
-        // Send timer value to the server
-        sendTimerToServer();
-    }
+        });
 }
 
     function pauseTimer() {
+
     clearInterval(timerInterval);
     $.ajaxSetup({
              headers: {
@@ -170,7 +174,7 @@
                       (seconds < 10 ? "0" + seconds : seconds)
             },
             success: function(response) {
-                alert(response);
+           alert(response);
             },
             error: function(error) {
                 console.log(error.responseJSON);

@@ -13,6 +13,7 @@ class employee_attendence_time extends Model
         'in_time',
         'out_time',
         'total_hours',
+        'login_status'
        
     ];
 

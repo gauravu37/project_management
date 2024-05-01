@@ -162,6 +162,81 @@ class AdminController extends Controller
 
     }
 
+
+    public function add_employee()
+    {
+        return view('admin.add_employee');
+    }
+
+    public function add_employee_detail(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'image' => 'required',
+            
+        ]);
+       
+        $imageName="";
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('user_profile'), $imageName);
+          }
+        $add_employee = new User();
+        $add_employee->name = $request->name;
+        $add_employee->email = $request->email;
+        $add_employee->phone = $request->phone;
+        $add_employee->image = $imageName;
+        $add_employee->password = Hash::make($request->password);
+        if($add_employee->save()){
+            return redirect("employees")->with('success','Add Project Successfully');
+        }
+
+    }
+
+    public function delete_employee($id){
+        $delete = User::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success','Delete Employee Successfully');
+    }
+
+    public function edit_employee($id){
+        $employe = User::find($id);
+        return view('admin.edit_employee',compact('employe'));
+     }
+
+     public function update_employee(Request $request)
+     {
+         $request->validate([
+             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // adjust max size as neede
+         ]);
+ 
+         if ($request->hasFile('image')) {
+             $image = $request->file('image');
+             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+             $image->move(public_path('user_profile'), $imageName);
+           }
+           if ($request->hasFile('image')) {
+            $add_employee = User::find($request->id);
+            $add_employee->name = $request->name;
+            $add_employee->email = $request->email;
+            $add_employee->phone = $request->phone;
+            $add_employee->image = $imageName;
+            $add_employee->update();
+           }else{
+            $add_employee = User::find($request->id);
+            $add_employee->name = $request->name;
+            $add_employee->email = $request->email;
+            $add_employee->phone = $request->phone;
+             $add_employee->update();
+           }
+           return redirect("employees")->with('success','Update Employee Successfully');
+      
+     }
+
+
     public function signOut() {
         Session::flush();
         return Redirect('admin');
