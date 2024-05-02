@@ -15,7 +15,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-// userr route
+// userr routee
 Route::get('/', [UserController::class, 'index'])->name('/');
 Route::post('custom-login', [UserController::class, 'customLogin'])->name('login.custom'); 
 Route::get('registration', [UserController::class, 'registration'])->name('register-user');

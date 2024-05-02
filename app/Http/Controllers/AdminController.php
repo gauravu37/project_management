@@ -26,6 +26,8 @@ class AdminController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
+
+        ///new //
      $credentials = $request->only('email', 'password');
         $user = Admin::where('email', $request->email)->first();
         if(!$user || !Hash::check($request->password, $user->password)){

@@ -14,7 +14,7 @@ class Admin extends Authenticatable
     protected $table = 'admin';
     
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignablee.
      *
      * @var array<int, string>
      */

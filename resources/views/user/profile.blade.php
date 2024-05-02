@@ -52,7 +52,7 @@
 </style>
 @include('layout.header')
 
-                <!-- Begin Page Content -->
+                <!-- Begin Page Contentt -->
                 <div class="container-fluid">
 
                         <!-- Page Heading -->
