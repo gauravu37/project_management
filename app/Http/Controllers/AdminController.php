@@ -44,16 +44,28 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         return view('dashboard');
     }
 
     public function users()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $user = User::all();
         return view('admin.employee',compact('user'));
     }
     public function requestLeave()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $user = Employeleave::where('status','0')->latest()->get();
         return view('admin.requestLeave',compact('user'));
     }
@@ -66,6 +78,10 @@ class AdminController extends Controller
 
     public function rejectleaveview()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $user = Employeleave::where('status','2')->latest()->get();
         return view('admin.rejectleaveview',compact('user'));
     }
@@ -94,6 +110,10 @@ class AdminController extends Controller
 
     public function employee_time()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $today = now()->toDateString();
         $employee_time = employee_attendence_time::whereDate('created_at', $today)->get();
         return view('admin.employee_time',compact('employee_time'));
@@ -101,7 +121,10 @@ class AdminController extends Controller
 
     public function project_management()
     {
-      
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $project_management = project_management::all();
         return view('admin.project_management',compact('project_management'));
     }
@@ -114,6 +137,10 @@ class AdminController extends Controller
 
     public function add_project()
     {
+        if (Session::get('role') =='') {
+        // Session variable does not exist, redirect to login route
+        return redirect()->route('admin');
+    }
         return view('admin.add_project');
     }
 
@@ -139,6 +166,10 @@ class AdminController extends Controller
     }
 
     public function edit_project($id){
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $editproject = project_management::find($id);
         return view('admin.edit_project',compact('editproject'));
     }
@@ -167,6 +198,10 @@ class AdminController extends Controller
 
     public function add_employee()
     {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         return view('admin.add_employee');
     }
 
@@ -205,6 +240,10 @@ class AdminController extends Controller
     }
 
     public function edit_employee($id){
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
         $employe = User::find($id);
         return view('admin.edit_employee',compact('employe'));
      }

@@ -42,7 +42,7 @@
                                         @php $userdetail = App\Models\User::where(['id' => $employee_times->user_id])->first(); @endphp
                                             <td>{{$userdetail->name}}</td>
                                             <td>{{$employee_times->total_hours}}</td>
-                                            <td>{{$employee_times->created_at}}</td>
+                                            <td>{{$employee_times->in_time}}</td>
                                             @if($employee_times->total_hours != '0')
                                             <td>{{$employee_times->out_time}}</td>
                                             @else

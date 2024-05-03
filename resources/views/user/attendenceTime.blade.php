@@ -76,11 +76,9 @@
                             <button id="stopBtn">Stop</button>
                             </div>
                         </div>
-                        @if($time)
-                        <h2>Total Time:<span id="totaltime"> <?php if($time->total_hours){echo $time->total_hours; }else{ echo "0"; } ?></span> </h6>
-                        @else
-                        <h2>Total Time:0</h2>
-                        @endif
+                      
+                        <h2>Total Time:<span id="totaltime"> </span></h2>
+                       
                     </div>
 
                 </div>
@@ -203,6 +201,7 @@
             },
             success: function(response) {
                 alert(response);
+                location.reload();
             },
             error: function(error) {
                 console.log(error.responseJSON);
@@ -233,6 +232,7 @@
             },
             success: function(response) {
                 alert(response);
+                
             },
             error: function(error) {
                 console.log(error.responseJSON);
@@ -246,6 +246,40 @@
     document.getElementById('pauseBtn').addEventListener('click', pauseTimer); // Add this line for pause button
 
 </script>
+
+<script>
+// Function to reload the page
+function autoReload() {
+    $.ajaxSetup({
+             headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      }
+                    });
+    $.ajax({
+            type: 'GET',
+            url: "{{ url('user/get-time') }}",
+            data: {
+               
+            },
+            success: function(response) {
+                
+                var mySpan = document.getElementById("totaltime");
+                mySpan.textContent = response;
+               
+            },
+            error: function(error) {
+                console.log(error.responseJSON);
+                alert('Error occurred while sending timer value.');
+            }
+        });
+
+  
+}
+
+// Reload the page every 10 seconds
+setInterval(autoReload, 5000); // 10 seconds = 10000 milliseconds
+</script>
+
 </body>
 
 </html>

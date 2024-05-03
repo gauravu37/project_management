@@ -74,12 +74,15 @@ class UserController extends Controller
             return view('dashboard');
         }
 
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
 
     public function applyLeave()
     {
+        if (Auth::check()) {
         return view('user.employeeLeave');
+        }
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
 
     public function attendence_time()
@@ -92,8 +95,11 @@ class UserController extends Controller
             ->whereDate('created_at', $today)
             ->latest()
             ->first();
-      
+            if (Auth::check()) {
         return view('user.attendenceTime',compact('time'));
+            }else{
+                return redirect("/")->withSuccess('You are not allowed to access');
+            }
     }
 
     public function attendence()
@@ -160,6 +166,34 @@ class UserController extends Controller
        
 
       
+    }
+
+    public function gettime()
+    {
+        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        // Retrieve the latest attendance time record for the current user
+        $time = employee_attendence_time::where('user_id', $userId)
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->first();
+       $start_time = $time->in_time;
+       $time_difference = $currentTime->diff($start_time);
+
+       // Extract hours and minutes
+       $hours = $time_difference->h + ($time_difference->days * 24);
+       $minutes = $time_difference->i;
+       $total_minutes = ($hours * 60) + $minutes;
+
+       // Convert total_minutes to hours and minutes format
+       $total_hours = floor($total_minutes / 60);
+       $total_minutes = $total_minutes % 60;
+       $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
+       $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
+       $totaltime = $formatted_total_hours . ':' . $formatted_total_minutes;
+       echo  $totaltime;
     }
 
     public function time_pause()
@@ -307,8 +341,11 @@ class UserController extends Controller
     {
         $userId = Auth::id();
         $userdetail = User::find($userId);
-       
+        if (Auth::check()) {
         return view('user.profile',compact('userdetail'));
+        }else{
+            return redirect("/")->withSuccess('You are not allowed to access');
+        }
     }
 
     public function profile_update(Request $request)
@@ -347,6 +384,6 @@ class UserController extends Controller
     {
         Session::flush();
         Auth::logout();
-        return Redirect('user/login');
+        return Redirect('/');
     }
 }

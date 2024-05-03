@@ -36,6 +36,8 @@ Route::post('user/time-stop', [UserController::class, 'time_stop'])->name('user/
 Route::get('user/profile', [UserController::class, 'profile'])->name('user/profile');
 Route::post('user/profile-update', [UserController::class, 'profile_update'])->name('user/profile-update');
 
+Route::get('user/get-time', [UserController::class, 'gettime'])->name('user/get-time');
+
 // // admin route
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::post('admin/login', [AdminController::class, 'customLogin'])->name('admin/login');
