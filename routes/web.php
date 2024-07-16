@@ -37,6 +37,10 @@ Route::get('user/profile', [UserController::class, 'profile'])->name('user/profi
 Route::post('user/profile-update', [UserController::class, 'profile_update'])->name('user/profile-update');
 
 Route::get('user/get-time', [UserController::class, 'gettime'])->name('user/get-time');
+Route::get('user/get-project', [UserController::class, 'get_project'])->name('user/get-project');
+
+Route::get('user/view-project/{id}', [UserController::class, 'view_project']);
+
 
 // // admin route
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
@@ -62,3 +66,18 @@ Route::post('add-employee-detail', [AdminController::class, 'add_employee_detail
 Route::get('delete-employee/{id}', [AdminController::class, 'delete_employee']);
 Route::get('edit-employee/{id}', [AdminController::class, 'edit_employee']);
 Route::post('update-employee', [AdminController::class, 'update_employee']);
+
+Route::get('admin-client-management', [AdminController::class, 'client_management'])->name('admin-client-management');
+Route::get('add-client', [AdminController::class, 'add_client']);
+Route::post('add-client-detail', [AdminController::class, 'add_client_detail']);
+
+Route::get('delete-client/{id}', [AdminController::class, 'delete_client']);
+Route::get('edit-client/{id}', [AdminController::class, 'edit_client']);
+Route::post('update-client-detail', [AdminController::class, 'update_client_detail']);
+
+Route::get('task-management', [AdminController::class, 'task_management'])->name('task-management');
+Route::get('add-task', [AdminController::class, 'add_task']);
+Route::post('add-task-detail', [AdminController::class, 'add_task_detail']);
+Route::get('delete-task/{id}', [AdminController::class, 'delete_task']);
+Route::get('edit-task/{id}', [AdminController::class, 'edit_task']);
+Route::post('update-task-detail', [AdminController::class, 'update_task_detail']);

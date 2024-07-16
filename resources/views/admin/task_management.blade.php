@@ -30,7 +30,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-project')}}" class="addproject">Add Project</a></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-task')}}" class="addproject">Add Task</a></h6>
                            
                         </div>
                         <div class="card-body">
@@ -40,34 +40,34 @@
                                         <tr>
                                             <th>Sr No</th>
                                             <th>Project Name</th>
-                                            <th>Client Name</th>
+                                            <th>Task Title</th>
                                             <th>Total Hours</th>
-                                            <th>Payment</th>
+                                            <th>Deadline</th>
                                             <th>Action</th>
                                          </tr>
                                     </thead>
                                    
                                     <tbody>
                                        @php $i=0; @endphp
-                                        @foreach($project_management as $project_managements) 
+                                        @foreach($task_management as $task_managements) 
                                         @php $i++; @endphp
                                        <tr>
                                             <td>{{$i}}</td>
-                                            <td>{{$project_managements->project_name}}</td>
+                                      
                                             @php 
-                                            $client = App\Models\client_management::where(['id' => $project_managements->client_name])->first();
+                                            $project = App\Models\project_management::where(['id' => $task_managements->project_id])->first();
                                             @endphp
                                             
-                                            <td>{{$client->name}}</td>
+                                            <td>{{$project->project_name}}</td>
+                                            <td>{{$task_managements->task_title}}</td>
 
-
-                                            <td>{{$project_managements->total_hours}}</td>
-                                            <td>{{$project_managements->payment}}</td>
+                                            <td>{{$task_managements->total_hours}}</td>
+                                            <td>{{$task_managements->deadline}}</td>
                                            <td> 
-                                            <a href="{{url('edit-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
+                                            <a href="{{url('edit-task/'.$task_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{url('delete-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
+                                            <a href="{{url('delete-task/'.$task_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

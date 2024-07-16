@@ -20,7 +20,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Project Management</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Client Management</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -30,7 +30,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-project')}}" class="addproject">Add Project</a></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Client Management <a href="{{url('add-client')}}" class="addproject">Add Client</a></h6>
                            
                         </div>
                         <div class="card-body">
@@ -39,35 +39,29 @@
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
-                                            <th>Project Name</th>
-                                            <th>Client Name</th>
-                                            <th>Total Hours</th>
-                                            <th>Payment</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Contact</th>
+                                            
                                             <th>Action</th>
                                          </tr>
                                     </thead>
                                    
                                     <tbody>
                                        @php $i=0; @endphp
-                                        @foreach($project_management as $project_managements) 
+                                        @foreach($client_management as $client_managements) 
                                         @php $i++; @endphp
                                        <tr>
                                             <td>{{$i}}</td>
-                                            <td>{{$project_managements->project_name}}</td>
-                                            @php 
-                                            $client = App\Models\client_management::where(['id' => $project_managements->client_name])->first();
-                                            @endphp
-                                            
-                                            <td>{{$client->name}}</td>
-
-
-                                            <td>{{$project_managements->total_hours}}</td>
-                                            <td>{{$project_managements->payment}}</td>
+                                            <td>{{$client_managements->name}}</td>
+                                            <td>{{$client_managements->email}}</td>
+                                            <td>{{$client_managements->contact}}</td>
+                                           
                                            <td> 
-                                            <a href="{{url('edit-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
+                                            <a href="{{url('edit-client/'.$client_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{url('delete-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
+                                            <a href="{{url('delete-client/'.$client_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

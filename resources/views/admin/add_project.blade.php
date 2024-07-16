@@ -46,8 +46,22 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="inputEmail">Client Name</label>
-                                <input type="text" class="form-control" id="inputEmail" name="client_name" placeholder="Enter client name">
+                                <select name="client_name" class="form-control" id="cars">
+                                @foreach($client as $clients)
+                                <option value="{{$clients->id}}">{{$clients->name}}</option>
+                                @endforeach
+                                </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Assign</label>
+                                <select name="assign" class="form-control" id="cars">
+                                @foreach($user as $users)
+                                <option value="{{$users->id}}">{{$users->name}}({{$users->designation}})</option>
+                                @endforeach
+                                </select>
+                            </div>
+
                             
 
                             <!-- Password Field -->
@@ -59,6 +73,11 @@
                             <div class="form-group">
                                 <label for="inputPassword">Payment</label>
                                 <input type="text" class="form-control" id="inputPassword" name="payment" placeholder="payment">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword">Deadline</label>
+                                <input type="date" class="form-control" id="inputPassword" name="deadline" placeholder="Deadline">
                             </div>
 
                             <!-- Submit Button -->

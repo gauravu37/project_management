@@ -20,7 +20,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Project Management</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Edit Client</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -29,53 +29,64 @@
 @endif
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-project')}}" class="addproject">Add Project</a></h6>
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Edit Client</h6>
                            
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr No</th>
-                                            <th>Project Name</th>
-                                            <th>Client Name</th>
-                                            <th>Total Hours</th>
-                                            <th>Payment</th>
-                                            <th>Action</th>
-                                         </tr>
-                                    </thead>
-                                   
-                                    <tbody>
-                                       @php $i=0; @endphp
-                                        @foreach($project_management as $project_managements) 
-                                        @php $i++; @endphp
-                                       <tr>
-                                            <td>{{$i}}</td>
-                                            <td>{{$project_managements->project_name}}</td>
-                                            @php 
-                                            $client = App\Models\client_management::where(['id' => $project_managements->client_name])->first();
-                                            @endphp
-                                            
-                                            <td>{{$client->name}}</td>
-
-
-                                            <td>{{$project_managements->total_hours}}</td>
-                                            <td>{{$project_managements->payment}}</td>
-                                           <td> 
-                                            <a href="{{url('edit-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
-                                            <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="{{url('delete-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
-                                            <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
-                                        </tr>
-                                       @endforeach 
-                                    </tbody>
-                                </table>
+                        <form action="{{url('update-client-detail')}}" method="POST">
+                            @csrf <!-- CSRF Protection -->
+                            <input type="hidden" value="{{$editclient->id}}" name="id">
+                            <!-- Input Field -->
+                            <div class="form-group">
+                                <label for="inputName"> Name</label>
+                                <input type="text" class="form-control" id="inputName" name="name" value="{{$editclient->name}}" >
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputName"> Email</label>
+                                <input type="text" class="form-control" id="inputName" name="email" value="{{$editclient->email}}" >
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputName"> Contact</label>
+                                <input type="text" class="form-control" id="inputName" name="contact" value="{{$editclient->contact}}" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName"> Facebook Id</label>
+                                <input type="text" class="form-control" id="inputName" name="facebook_id" value="{{$editclient->facebook_id}}" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName"> Instagram Id</label>
+                                <input type="text" class="form-control" id="inputName" name="instagram_id" value="{{$editclient->instagram_id}}" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName"> Skype Id</label>
+                                <input type="text" class="form-control" id="inputName" name="skype_id" value="{{$editclient->skype_id}}" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName"> Telegram</label>
+                                <input type="text" class="form-control" id="inputName" name="telegram_id" value="{{$editclient->telegram_id}}" >
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="inputEmail">Whatsapp</label>
+                                <input type="text" class="form-control" id="inputEmail" name="whatsapp" value="{{$editclient->whatsapp}}" >
+                            </div>
+                            
+
+                            <!-- Password Field -->
+                           
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                         </div>
                     </div>
 

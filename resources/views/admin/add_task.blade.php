@@ -20,7 +20,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Project Management</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Add Task</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -29,53 +29,56 @@
 @endif
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-project')}}" class="addproject">Add Project</a></h6>
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Add Task</h6>
                            
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr No</th>
-                                            <th>Project Name</th>
-                                            <th>Client Name</th>
-                                            <th>Total Hours</th>
-                                            <th>Payment</th>
-                                            <th>Action</th>
-                                         </tr>
-                                    </thead>
-                                   
-                                    <tbody>
-                                       @php $i=0; @endphp
-                                        @foreach($project_management as $project_managements) 
-                                        @php $i++; @endphp
-                                       <tr>
-                                            <td>{{$i}}</td>
-                                            <td>{{$project_managements->project_name}}</td>
-                                            @php 
-                                            $client = App\Models\client_management::where(['id' => $project_managements->client_name])->first();
-                                            @endphp
-                                            
-                                            <td>{{$client->name}}</td>
+                        <form action="{{url('add-task-detail')}}" method="POST">
+                            @csrf <!-- CSRF Protection -->
 
-
-                                            <td>{{$project_managements->total_hours}}</td>
-                                            <td>{{$project_managements->payment}}</td>
-                                           <td> 
-                                            <a href="{{url('edit-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
-                                            <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="{{url('delete-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
-                                            <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
-                                        </tr>
-                                       @endforeach 
-                                    </tbody>
-                                </table>
+                            <!-- Input Field -->
+                            <div class="form-group">
+                                <label for="inputName">Project Name</label>
+                                <select name="project_name" class="form-control" id="cars">
+                                @foreach($project as $projects)
+                                <option value="{{$projects->id}}">{{$projects->project_name}}</option>
+                                @endforeach
+                                </select>                            
                             </div>
+
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="inputEmail">Task Title</label>
+                                <input type="text" class="form-control" id="inputName" name="task_title">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Description</label>
+                                <div id="editor-container" style="height: 200px;"></div>
+                                <textarea id="editor-textarea" name="description" style="display: none;"></textarea>
+
+                            </div>
+
+                            
+
+                            <!-- Password Field -->
+                            <div class="form-group">
+                                <label for="inputPassword">Total Hours</label>
+                                <input type="text" class="form-control" id="inputPassword" name="total_hours" placeholder="hours">
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                <label for="inputPassword">Deadline</label>
+                                <input type="date" class="form-control" id="inputPassword" name="deadline" placeholder="Deadline">
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                         </div>
                     </div>
 
@@ -141,7 +144,21 @@
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
-
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+    var textarea = document.getElementById('editor-textarea');
+    var editor = new Quill('#editor-container', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editor.root.innerHTML = textarea.value;
+    
+    // Update textarea on editor change
+    editor.on('text-change', function(delta, oldDelta, source) {
+        textarea.value = editor.root.innerHTML;
+    });
+</script>
 </body>
 
 </html>

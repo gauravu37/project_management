@@ -11,6 +11,7 @@ use App\Models\Employeleave;
 use Illuminate\Support\Facades\Auth;
 use App\Models\employee_attendence_time;
 use Illuminate\Support\Facades\Date;
+use App\Models\project_management;
 
 class UserController extends Controller
 {
@@ -380,6 +381,26 @@ class UserController extends Controller
     }
 
 
+    public function get_project()
+    {
+        $userId = Auth::id();
+        $projects = project_management::where('assign',$userId)->get();
+        if (Auth::check()) {
+        return view('user.get_project',compact('projects'));
+        }else{
+            return redirect("/")->withSuccess('You are not allowed to access');
+        }
+    }
+
+    public function view_project($id)
+    {
+        $projectdetail = project_management::where('id',$id)->first();
+        if (Auth::check()) {
+            return view('user.view_project',compact('projectdetail'));
+            }else{
+                return redirect("/")->withSuccess('You are not allowed to access');
+            }
+    }
     public function signOut()
     {
         Session::flush();

@@ -62,10 +62,23 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{route('admin-client-management')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Clients Management</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{route('project-management')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Projects Management</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('task-management')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Task Management</span></a>
+            </li>
+
 
 
              <!-- Divider -->
@@ -190,6 +203,13 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Leave</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('user/get-project')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Projects</span></a>
+            </li>
+
              <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

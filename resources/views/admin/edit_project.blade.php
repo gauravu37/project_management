@@ -46,9 +46,22 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="inputEmail">Client Name</label>
-                                <input type="text" class="form-control" id="inputEmail" name="client_name" value="<?php if($editproject->client_name){echo $editproject->client_name;}?>" placeholder="Enter client name">
+                                <select name="client_name" class="form-control" id="cars">
+                                    @foreach($client as $clients)
+                                        <option value="{{ $clients->id }}" @if($clients->id == $editproject->client_name) selected @endif>
+                                            {{ $clients->name }}
+                                        </option>
+                                    @endforeach
+                                </select>                        
+                              </div>
+                              <div class="form-group">
+                                <label for="inputEmail">Assign</label>
+                                <select name="assign" class="form-control" id="cars">
+                                @foreach($user as $users)
+                                <option value="{{$users->id}}" @if($users->id == $editproject->assign) selected @endif>{{$users->name}}({{$users->designation}})</option>
+                                @endforeach
+                                </select>
                             </div>
-                            
 
                             <!-- Password Field -->
                             <div class="form-group">
@@ -60,6 +73,12 @@
                                 <label for="inputPassword">Payment</label>
                                 <input type="text" class="form-control" id="inputPassword" name="payment" value="<?php if($editproject->payment){echo $editproject->payment;}?>" placeholder="payment">
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword">Deadline</label>
+                                <input type="date" class="form-control" id="inputPassword" name="deadline" value="<?php if($editproject->deadline){echo $editproject->deadline;}?>" placeholder="payment">
+                            </div>
+
 
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Update</button>
