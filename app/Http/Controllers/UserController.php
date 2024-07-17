@@ -267,7 +267,7 @@ class UserController extends Controller
         $userId = Auth::id();
         $today = now()->toDateString();
 
-        // Retrieve the latest attendance time record for the current user
+        /// Retrieve the latest attendance time record for the current user
         $time = employee_attendence_time::where('user_id', $userId)
             ->whereDate('created_at', $today)
             ->latest()

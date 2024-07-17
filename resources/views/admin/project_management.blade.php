@@ -16,7 +16,7 @@
   font-weight: 800;
 }
 </style>
-                <!-- Begin Page Contentt -->
+                <!-- Begin Page Contentt --->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->

@@ -42,7 +42,7 @@ Route::get('user/get-project', [UserController::class, 'get_project'])->name('us
 Route::get('user/view-project/{id}', [UserController::class, 'view_project']);
 
 
-// // admin route
+// //// admin route
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::post('admin/login', [AdminController::class, 'customLogin'])->name('admin/login');
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard'); 

@@ -90,7 +90,7 @@
                 <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Main Content --->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">

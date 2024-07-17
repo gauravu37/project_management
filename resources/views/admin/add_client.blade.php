@@ -74,7 +74,7 @@
                                 <input type="text" class="form-control" id="inputName" name="telegram_id" placeholder="Enter your project name">
                             </div>
 
-                            <!-- Email Field -->
+                            <!-- Email Field --->
                             <div class="form-group">
                                 <label for="inputEmail">Whatsapp</label>
                                 <input type="text" class="form-control" id="inputEmail" name="whatsapp" placeholder="Enter client name">
