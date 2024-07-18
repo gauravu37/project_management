@@ -18,6 +18,9 @@ class client_management extends Model
         'skype_id',
         'telegram_id',
         'whatsapp',
+        'upwork_id',
+        'project_url',
+        'assana',
         'status'
         
     ];

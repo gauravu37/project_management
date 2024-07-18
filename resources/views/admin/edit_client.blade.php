@@ -74,6 +74,18 @@
                                 <input type="text" class="form-control" id="inputName" name="telegram_id" value="{{$editclient->telegram_id}}" >
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputName"> Upwork Id</label>
+                                <input type="text" class="form-control" id="inputName" name="upwork_id" value="{{$editclient->upwork_id}}" >
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName"> Project Url</label>
+                                <input type="text" class="form-control" id="inputName" name="project_url" value="{{$editclient->v}}" >
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName"> Assana</label>
+                                <input type="text" class="form-control" id="inputName" name="assana" value="{{$editclient->assana}}" >
+                            </div>
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="inputEmail">Whatsapp</label>

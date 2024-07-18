@@ -324,6 +324,9 @@ class AdminController extends Controller
             'instagram_id' => 'required',
             'skype_id' => 'required',
             'telegram_id' => 'required',
+            'upwork_id' => 'required',
+            'project_url' => 'required',
+            'assana' => 'required',
             'whatsapp' => 'required',
             
         ]);
@@ -337,6 +340,9 @@ class AdminController extends Controller
         $add_client->skype_id = $request->skype_id;
         $add_client->telegram_id = $request->telegram_id;
         $add_client->whatsapp = $request->whatsapp;
+        $add_client->upwork_id = $request->upwork_id;
+        $add_client->project_url = $request->project_url;
+        $add_client->assana = $request->assana;
         $add_client->status = '0';
         if($add_client->save()){
             return redirect("admin-client-management")->with('success','Add Client Successfully');
@@ -370,6 +376,9 @@ class AdminController extends Controller
             'skype_id' => 'required',
             'telegram_id' => 'required',
             'whatsapp' => 'required',
+            'upwork_id' => 'required',
+            'project_url' => 'required',
+            'assana' => 'required',
             
         ]);
 
@@ -383,6 +392,9 @@ class AdminController extends Controller
         $update->skype_id = $request->skype_id;
         $update->telegram_id = $request->telegram_id;
         $update->whatsapp = $request->whatsapp;
+        $update->upwork_id = $request->upwork_id;
+        $update->project_url = $request->project_url;
+        $update->assana = $request->assana;
         $update->status = '0';
         if($update->save()){
             return redirect("admin-client-management")->with('success','Update Client Successfully');

@@ -40,46 +40,58 @@
                             <!-- Input Field -->
                             <div class="form-group">
                                 <label for="inputName"> Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter name">
+                                <input type="text" class="form-control" id="inputName" name="name" >
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Email</label>
-                                <input type="text" class="form-control" id="inputName" name="email" placeholder="Enter email">
+                                <input type="text" class="form-control" id="inputName" name="email" >
                             </div>
 
 
                             <div class="form-group">
                                 <label for="inputName"> Contact</label>
-                                <input type="text" class="form-control" id="inputName" name="contact" placeholder="Contact">
+                                <input type="text" class="form-control" id="inputName" name="contact" >
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Facebook Id</label>
-                                <input type="text" class="form-control" id="inputName" name="facebook_id" placeholder="Enter your project name">
+                                <input type="text" class="form-control" id="inputName" name="facebook_id" >
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Instagram Id</label>
-                                <input type="text" class="form-control" id="inputName" name="instagram_id" placeholder="Enter your project name">
+                                <input type="text" class="form-control" id="inputName" name="instagram_id" >
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Skype Id</label>
-                                <input type="text" class="form-control" id="inputName" name="skype_id" placeholder="Enter your project name">
+                                <input type="text" class="form-control" id="inputName" name="skype_id" >
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Telegram</label>
-                                <input type="text" class="form-control" id="inputName" name="telegram_id" placeholder="Enter your project name">
+                                <input type="text" class="form-control" id="inputName" name="telegram_id" >
                             </div>
 
                             <!-- Email Field --->
                             <div class="form-group">
                                 <label for="inputEmail">Whatsapp</label>
-                                <input type="text" class="form-control" id="inputEmail" name="whatsapp" placeholder="Enter client name">
+                                <input type="text" class="form-control" id="inputEmail" name="whatsapp" >
                             </div>
                             
+                            <div class="form-group">
+                                <label for="inputName"> Upwork Id</label>
+                                <input type="text" class="form-control" id="inputName" name="upwork_id" >
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName"> Project Url</label>
+                                <input type="text" class="form-control" id="inputName" name="project_url" >
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName"> Assana</label>
+                                <input type="text" class="form-control" id="inputName" name="assana" >
+                            </div>
 
                             <!-- Password Field -->
                            

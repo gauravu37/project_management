@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('skype_id')->nullable();
             $table->string('telegram_id')->nullable();
             $table->string('whatsapp')->nullable();
+            $table->string('upwork_id')->nullable();
+            $table->string('project_url')->nullable();
+            $table->string('assana')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
