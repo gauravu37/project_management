@@ -438,6 +438,7 @@ class AdminController extends Controller
             'description' => 'required',
             'total_hours' => 'required',
             'deadline' => 'required',
+            'logindetail' => 'required'
             
         ]);
       
@@ -447,6 +448,8 @@ class AdminController extends Controller
         $add_task->description = $request->description;
         $add_task->total_hours = $request->total_hours;
         $add_task->deadline = $request->deadline;
+        $add_task->logindetail = $request->logindetail;
+
         $add_task->status = '0';
         if($add_task->save()){
             return redirect("task-management")->with('success','Add task Successfully');
@@ -479,6 +482,7 @@ class AdminController extends Controller
             'description' => 'required',
             'total_hours' => 'required',
             'deadline' => 'required',
+            'logindetail' => 'required'
             
         ]);
 
@@ -489,6 +493,7 @@ class AdminController extends Controller
         $update->description = $request->description;
         $update->total_hours = $request->total_hours;
         $update->deadline = $request->deadline;
+        $update->logindetail = $request->logindetail;
         $update->status = '0';
       
         if($update->save()){
@@ -496,6 +501,8 @@ class AdminController extends Controller
         }
 
     }
+
+   
 
 
 }

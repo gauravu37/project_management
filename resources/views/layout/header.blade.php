@@ -210,6 +210,12 @@
                     <span>Projects</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('user/get-task')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tasks</span></a>
+            </li>
+
              <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

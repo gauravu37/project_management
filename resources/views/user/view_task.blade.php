@@ -16,11 +16,14 @@
   font-weight: 800;
 }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
                 <!-- Begin Page Contentt -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Edit Task</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Task Detail</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -30,61 +33,63 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit Task</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Task Detail</h6>
                            
                         </div>
                         <div class="card-body">
-                        <form action="{{url('update-task-detail')}}" method="POST">
-                            @csrf <!-- CSRF Protection -->
-                            <input type="hidden" name="id" value="{{$edittask->id}}">
-
+                      
+                           
+                        <form action="{{url('add-task-start-time')}}" method="POST">
+                        @csrf
+                        <input type="hidden" id="project_id" name="project_id" value="{{$taskdetail->project_id}}">
+                        <input type="hidden" id="task_id" name="task_id" value="{{$taskdetail->id}}">
                             <!-- Input Field -->
                             <div class="form-group">
                                 <label for="inputName">Project Name</label>
-                                <select name="project_name" class="form-control" id="cars">
-                                @foreach($project as $projects)
-                                <option value="{{$projects->id}}" @if($projects->id == $edittask->project_id) selected @endif>{{$projects->project_name}}</option>
-                                @endforeach
-                                </select>                            
+                                <input type="text" class="form-control" id="inputName" value="{{$taskdetail->project_name}}" name="task_title" readonly>
+                       
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputEmail" readonly>Project Login Detail</label>
+                                <div id="editor-containers" style="height: 200px;"></div>
+                                <textarea id="editor-textareas" name="logindetail" value="{{$taskdetail->logindetail}}"  style="display: none;" readonly>{!! $taskdetail->logindetail !!}</textarea>
+
+                            </div>
                             <!-- Email Field -->
                             <div class="form-group">
-                                <label for="inputEmail">Task Title</label>
-                                <input type="text" class="form-control" id="inputName" value="{{$edittask->task_title}}" name="task_title">
+                                <label for="inputEmail" >Task Title</label>
+                                <input type="text" class="form-control" id="inputName" value="{{$taskdetail->task_title}}" name="task_title" readonly>
 
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail">Description</label>
+                                <label for="inputEmail" readonly>Task Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
-                                <textarea id="editor-textarea" name="description" value="{{$edittask->description}}" style="display: none;">{!! $edittask->description !!}</textarea>
+                                <textarea id="editor-textarea" name="description" value="{{$taskdetail->description}}" style="display: none;" readonly>{!! $taskdetail->description !!}</textarea>
 
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail">Login Detail</label>
-                                <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" value="{{$edittask->logindetail}}"  style="display: none;">{!! $edittask->logindetail !!}</textarea>
-
-                            </div>
+                            
 
                             <!-- Password Field -->
                             <div class="form-group">
                                 <label for="inputPassword">Total Hours</label>
-                                <input type="text" class="form-control" id="inputPassword" value="{{$edittask->total_hours}}" name="total_hours" placeholder="hours">
+                                <input type="text" class="form-control" id="inputPassword" value="{{$taskdetail->total_hours}}" name="total_hours" placeholder="hours" readonly>
                             </div>
 
                             
 
                             <div class="form-group">
                                 <label for="inputPassword">Deadline</label>
-                                <input type="date" class="form-control" id="inputPassword" value="{{$edittask->deadline}}" name="deadline" placeholder="Deadline">
+                                <input type="date" class="form-control" id="inputPassword" value="{{$taskdetail->deadline}}" name="deadline" placeholder="Deadline" readonly>
                             </div>
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                            <button type="submit" class="btn btn-primary">Start Time</button>
+                            <a id="ajax-button">End time</a>
+
+                            </form>
                         </div>
                     </div>
 
@@ -180,6 +185,38 @@
         textarea.value = editor.root.innerHTML;
     });
 </script>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('#ajax-button').click(function() {
+                var project_ids = document.getElementById("project_id");
+                 var project_id = project_ids.value;
+                 var task_ids = document.getElementById("task_id");
+                 var task_id = task_ids.value;
+
+                $.ajax({
+                    url: "{{ route('task-end-time') }}",
+                    type: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        project_id: project_id,
+                        task_id: task_id
+                    },
+                    success: function(response) {
+                       alert(response);
+                        if(response.success) {
+                            alert('AJAX request successful!');
+                        }
+                    },
+                    error: function(response) {
+                        console.log(response);
+                        alert('AJAX request failed!');
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

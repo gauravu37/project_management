@@ -41,6 +41,12 @@ Route::get('user/get-project', [UserController::class, 'get_project'])->name('us
 
 Route::get('user/view-project/{id}', [UserController::class, 'view_project']);
 
+Route::get('user/get-task', [UserController::class, 'get_task'])->name('user/get-task');
+
+Route::get('user/view-task/{id}', [UserController::class, 'view_task']);
+Route::post('add-task-start-time', [UserController::class, 'add_task_time']);
+
+Route::post('task-end-time', [UserController::class, 'task_end_time'])->name('task-end-time');;
 
 // //// admin route
 Route::get('admin', [AdminController::class, 'index'])->name('admin');

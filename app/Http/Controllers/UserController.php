@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\employee_attendence_time;
 use Illuminate\Support\Facades\Date;
 use App\Models\project_management;
+use App\Models\task_time;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -401,6 +405,103 @@ class UserController extends Controller
                 return redirect("/")->withSuccess('You are not allowed to access');
             }
     }
+
+    public function get_task()
+    {
+        $userId = Auth::id();
+        $task =  DB::table('project_managements')
+        ->join('task_managements', 'project_managements.id', '=', 'task_managements.project_id')
+        ->where('project_managements.assign', '=', '2')
+        ->select('project_managements.project_name', 'task_managements.*')
+        ->get();
+       
+        if (Auth::check()) {
+        return view('user.get_task',compact('task'));
+        }else{
+            return redirect("/")->withSuccess('You are not allowed to access');
+        }
+    }
+
+    public function view_task($id)
+    {
+        $taskdetail =  DB::table('project_managements')
+        ->join('task_managements', 'project_managements.id', '=', 'task_managements.project_id')
+        ->where('task_managements.id', '=', $id)
+        ->select('project_managements.project_name', 'task_managements.*')
+        ->first();
+        if (Auth::check()) {
+            return view('user.view_task',compact('taskdetail'));
+            }else{
+                return redirect("/")->withSuccess('You are not allowed to access');
+            }
+    }
+
+
+    public function add_task_time(Request $request)
+    {
+        $userId = Auth::id();
+
+        $validatedData = $request->validate([
+            'project_id' => 'required',
+            'task_id' => 'required'
+          ]);
+      
+        $currentDateTime = Carbon::now();
+
+        $task_time = new task_time();
+        $task_time->project_id = $request->project_id;
+        $task_time->task_id = $request->task_id;
+        $task_time->user_id = $userId;
+        $task_time->start_time = $currentDateTime;
+
+        $task_time->status = '0';
+        if($task_time->save()){
+            return redirect("user/view-task/{$request->task_id}")->with('success', 'Task Time Start');
+        }
+
+    }
+
+    public function task_end_time(Request $request)
+    { 
+        $userId = Auth::id();
+        $task_id = $request->task_id;
+        $project_id = $request->project_id;
+        
+        // Fetch the latest task_time record for the given user, task, and project
+        $task_time = task_time::where('user_id', $userId)
+                              ->where('task_id', $task_id)
+                              ->where('project_id', $project_id)
+                              ->latest()
+                              ->first();
+        
+        if ($task_time) {
+            // Get start time from the fetched record
+            $start_time = $task_time->start_time;
+            
+            // Calculate current time as end time
+            $end_time = Carbon::now();
+            
+            // Parse start and end times using Carbon
+            $start = Carbon::parse($start_time);
+            $end = Carbon::parse($end_time);
+            
+            // Calculate the time difference
+            $diff = $end->diff($start);
+            
+            // Update task_time record with end time and total time difference
+            $task_time->end_time = $end_time;
+            $task_time->total_time = $diff->format('%H:%I:%S'); // Format the difference as HH:MM:SS
+            
+            // Save the updated record
+            $task_time->save();
+            
+            // Output message or redirect as needed
+            echo "Task ended successfully.";
+        } else {
+            echo "Task time record not found."; // Handle error if no record found
+        }
+    }
+    
     public function signOut()
     {
         Session::flush();

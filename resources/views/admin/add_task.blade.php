@@ -61,6 +61,12 @@
 
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputEmail">Login Detail</label>
+                                <div id="editor-containers" style="height: 200px;"></div>
+                                <textarea id="editor-textareas" name="logindetail" style="display: none;"></textarea>
+
+                            </div>
                             
 
                             <!-- Password Field -->
@@ -141,7 +147,7 @@
 
     <!-- Page level plugins -->
     <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -157,6 +163,21 @@
     // Update textarea on editor change
     editor.on('text-change', function(delta, oldDelta, source) {
         textarea.value = editor.root.innerHTML;
+    });
+</script>
+
+<script>
+    var textareas = document.getElementById('editor-textareas');
+    var editors = new Quill('#editor-containers', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editors.root.innerHTML = textareas.value;
+    
+    // Update textarea on editor change
+    editors.on('text-change', function(delta, oldDelta, source) {
+        textareas.value = editor.root.innerHTML;
     });
 </script>
 </body>
