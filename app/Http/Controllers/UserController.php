@@ -388,7 +388,9 @@ class UserController extends Controller
     public function get_project()
     {
         $userId = Auth::id();
-        $projects = project_management::where('assign',$userId)->get();
+        $projects = project_management::whereRaw("FIND_IN_SET(?, assign)", [$userId])->get();
+
+       
         if (Auth::check()) {
         return view('user.get_project',compact('projects'));
         }else{

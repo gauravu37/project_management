@@ -39,18 +39,18 @@
 
                             <!-- Input Field -->
                             <div class="form-group">
-                                <label for="inputName"> Name</label>
+                                <label for="inputName"> Name<span style="color:red;"> *</span></label>
                                 <input type="text" class="form-control" id="inputName" name="name" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputName"> Email</label>
+                                <label for="inputName"> Email<span style="color:red;"> *</span></label>
                                 <input type="text" class="form-control" id="inputName" name="email" required >
                             </div>
 
 
                             <div class="form-group">
-                                <label for="inputName"> Contact</label>
+                                <label for="inputName"> Contact<span style="color:red;"> *</span></label>
                                 <input type="text" class="form-control" id="inputName" name="contact" required>
                             </div>
 

@@ -39,14 +39,14 @@
                         <input type="hidden" name="id" value="{{$editproject->id}}">
                             <!-- Input Field -->
                             <div class="form-group">
-                                <label for="inputName">Project Name</label>
-                                <input type="text" class="form-control" id="inputName" name="project_name" value="<?php if($editproject->project_name){echo $editproject->project_name;}?>"  placeholder="Enter your project name">
+                                <label for="inputName">Project Name<span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputName" name="project_name" value="<?php if($editproject->project_name){echo $editproject->project_name;}?>"  placeholder="Enter your project name" required>
                             </div>
 
                             <!-- Email Field -->
                             <div class="form-group">
-                                <label for="inputEmail">Client Name</label>
-                                <select name="client_name" class="form-control" id="cars">
+                                <label for="inputEmail">Client Name<span style="color:red;"> *</span></label>
+                                <select name="client_name" class="form-control" id="cars" required>
                                     @foreach($client as $clients)
                                         <option value="{{ $clients->id }}" @if($clients->id == $editproject->client_name) selected @endif>
                                             {{ $clients->name }}
@@ -55,28 +55,31 @@
                                 </select>                        
                               </div>
                               <div class="form-group">
-                                <label for="inputEmail">Assign</label>
-                                <select name="assign" class="form-control" id="cars">
+                                <label for="inputEmail">Assign<span style="color:red;"> *</span></label>
+                                <select name="assign" class="form-control" id="cars" required>
                                 @foreach($user as $users)
-                                <option value="{{$users->id}}" @if($users->id == $editproject->assign) selected @endif>{{$users->name}}({{$users->designation}})</option>
+                                @php
+                                     $designation = App\Models\designation::where(['id' => $users->designation])->first();
+                                     @endphp
+                                <option value="{{$users->id}}" @if($users->id == $editproject->assign) selected @endif>{{$users->name}}({{$designation->designation_name}})</option>
                                 @endforeach
                                 </select>
                             </div>
 
                             <!-- Password Field -->
                             <div class="form-group">
-                                <label for="inputPassword">Total Hours</label>
-                                <input type="text" class="form-control" id="inputPassword" name="total_hours" value="<?php if($editproject->total_hours){echo $editproject->total_hours;}?>" placeholder="hours">
+                                <label for="inputPassword">Total Hours<span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputPassword" name="total_hours" value="<?php if($editproject->total_hours){echo $editproject->total_hours;}?>" placeholder="hours" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPassword">Payment</label>
-                                <input type="text" class="form-control" id="inputPassword" name="payment" value="<?php if($editproject->payment){echo $editproject->payment;}?>" placeholder="payment">
+                                <label for="inputPassword">Payment<span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputPassword" name="payment" value="<?php if($editproject->payment){echo $editproject->payment;}?>" placeholder="payment" required> 
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPassword">Deadline</label>
-                                <input type="date" class="form-control" id="inputPassword" name="deadline" value="<?php if($editproject->deadline){echo $editproject->deadline;}?>" placeholder="payment">
+                                <label for="inputPassword">Deadline<span style="color:red;"> *</span></label>
+                                <input type="date" class="form-control" id="inputPassword" name="deadline" value="<?php if($editproject->deadline){echo $editproject->deadline;}?>" placeholder="payment" required>
                             </div>
 
 

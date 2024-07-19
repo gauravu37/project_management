@@ -39,31 +39,40 @@
 
                             <!-- Input Field -->
                             <div class="form-group">
-                                <label for="inputName">Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter your name">
+                                <label for="inputName">Name<span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter your name" required>
                             </div>
 
                             <!-- Email Field -->
                             <div class="form-group">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter email">
+                                <label for="inputEmail">Email<span style="color:red;"> *</span></label>
+                                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter email" required>
                             </div>
                             
 
                             <!-- Password Field -->
                             <div class="form-group">
-                                <label for="inputPassword">Phone</label>
-                                <input type="text" class="form-control" id="inputPassword" name="phone" placeholder="Enter Phone">
+                                <label for="inputPassword">Phone<span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputPassword" name="phone" placeholder="Enter Phone" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPassword">Image</label>
-                                <input type="file" class="form-control" id="inputPassword" name="image">
+                                <label for="inputEmail">Designation</label>
+                                <select name="designation" class="form-control" id="cars">
+                                @foreach($designation as $designations)
+                                <option value="{{$designations->id}}" >{{$designations->designation_name}}</option>
+                                @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPassword">Password</label>
-                                <input type="text" class="form-control" id="inputPassword" name="password" placeholder="Enter Password">
+                                <label for="inputPassword">Image </label>
+                                <input type="file" class="form-control" id="inputPassword" name="image" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword">Password <span style="color:red;"> *</span></label>
+                                <input type="text" class="form-control" id="inputPassword" name="password" placeholder="Enter Password" required>
                             </div>
 
                             <!-- Submit Button -->

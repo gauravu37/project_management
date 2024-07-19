@@ -47,6 +47,20 @@
                                 </select>                            
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputEmail">Assign <span style="color:red;"> *</span></label>
+                                <select id="choices-multiple-remove-button" name="assign" class="form-control inpt" id="cars">
+                                @foreach($user as $users)
+                                    @php
+                                     $designation = App\Models\designation::where(['id' => $users->designation])->first();
+                                     @endphp
+                                   
+                                <option value="{{$users->id}}">{{$users->name}}({{$designation->designation_name}})</option>
+                                @endforeach
+                                </select>
+                            </div>
+
+
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="inputEmail">Task Title</label>

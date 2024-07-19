@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('task_managements', function (Blueprint $table) {
             $table->id();
             $table->string('project_id')->nullable();
+            $table->string('assign')->nullable();
             $table->string('task_title')->nullable();
             $table->string('description')->nullable();
             $table->string('deadline')->nullable();

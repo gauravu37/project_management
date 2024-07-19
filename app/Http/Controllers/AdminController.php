@@ -13,6 +13,7 @@ use App\Models\employee_attendence_time;
 use App\Models\project_management;
 use App\Models\client_management;
 use App\Models\task_management;
+use App\Models\designation;
 
 class AdminController extends Controller
 {
@@ -160,12 +161,15 @@ class AdminController extends Controller
             'deadline' => 'required'
             
         ]);
+        $assign = $request->input('assign');
+        $assigns = implode(',', $assign);
+
 
         $add_project = new project_management();
         $add_project->project_name = $request->project_name;
         $add_project->client_name = $request->client_name;
         $add_project->total_hours = $request->total_hours;
-        $add_project->assign = $request->assign;
+        $add_project->assign = $assigns;
         $add_project->payment = $request->payment;
         $add_project->deadline = $request->deadline;
         if($add_project->save()){
@@ -231,7 +235,8 @@ class AdminController extends Controller
             // Session variable does not exist, redirect to login route
             return redirect()->route('admin');
         }
-        return view('admin.add_employee');
+        $designation = designation::all();
+        return view('admin.add_employee',compact('designation'));
     }
 
     public function add_employee_detail(Request $request)
@@ -240,7 +245,7 @@ class AdminController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'image' => 'required',
+           
             
         ]);
        
@@ -254,6 +259,7 @@ class AdminController extends Controller
         $add_employee->name = $request->name;
         $add_employee->email = $request->email;
         $add_employee->phone = $request->phone;
+        $add_employee->designation = $request->designation;
         $add_employee->image = $imageName;
         $add_employee->password = Hash::make($request->password);
         if($add_employee->save()){
@@ -274,14 +280,20 @@ class AdminController extends Controller
             return redirect()->route('admin');
         }
         $employe = User::find($id);
-        return view('admin.edit_employee',compact('employe'));
+        $designation = designation::all();
+        return view('admin.edit_employee',compact('employe','designation'));
      }
 
      public function update_employee(Request $request)
      {
-         $request->validate([
-             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // adjust max size as neede
-         ]);
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+           
+            
+        ]);
+         
  
          if ($request->hasFile('image')) {
              $image = $request->file('image');
@@ -293,6 +305,7 @@ class AdminController extends Controller
             $add_employee->name = $request->name;
             $add_employee->email = $request->email;
             $add_employee->phone = $request->phone;
+            $add_employee->designation = $request->designation;
             $add_employee->image = $imageName;
             $add_employee->update();
            }else{
@@ -300,6 +313,7 @@ class AdminController extends Controller
             $add_employee->name = $request->name;
             $add_employee->email = $request->email;
             $add_employee->phone = $request->phone;
+            $add_employee->designation = $request->designation;
              $add_employee->update();
            }
            return redirect("employees")->with('success','Update Employee Successfully');
@@ -412,9 +426,10 @@ class AdminController extends Controller
             // Session variable does not exist, redirect to login route
             return redirect()->route('admin');
         }
+        $user = User::all();
         $project = project_management::all();
 
-        return view('admin.add_task',compact('project'));
+        return view('admin.add_task',compact('project','user'));
     }
 
     public function signOut() {
@@ -437,6 +452,7 @@ class AdminController extends Controller
       
         $add_task = new task_management();
         $add_task->project_id = $request->project_name;
+        $add_task->assign = $request->assign;
         $add_task->task_title = $request->task_title;
         $add_task->description = $request->description;
         $add_task->total_hours = $request->total_hours;
@@ -463,7 +479,8 @@ class AdminController extends Controller
         }
         $project = project_management::all();
         $edittask = task_management::find($id);
-        return view('admin.edit_task',compact('edittask','project'));
+        $user = User::all();
+        return view('admin.edit_task',compact('edittask','project','user'));
     }
 
 
@@ -482,6 +499,7 @@ class AdminController extends Controller
         $id = $request->id;
         $update = task_management::find($id);
         $update->project_id = $request->project_name;
+        $update->assign = $request->assign;
         $update->task_title = $request->task_title;
         $update->description = $request->description;
         $update->total_hours = $request->total_hours;

@@ -10,6 +10,7 @@ class task_management extends Model
     use HasFactory;
     protected $fillable = [
         'project_id',
+        'assign',
         'task_title',
         'description',
         'total_hours',

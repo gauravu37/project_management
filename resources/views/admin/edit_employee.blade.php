@@ -57,6 +57,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="inputEmail">Designation</label>
+                                <select name="designation" class="form-control" id="cars">
+                                @foreach($designation as $designations)
+                                <option value="{{$designations->id}}" @if($designations->id == $employe->designation) selected @endif>{{$designations->designation_name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
                                 <label for="inputPassword">Image</label>
                                 <input type="file" class="form-control" id="inputPassword" name="image">
                                 <img src="{{asset('user_profile/'.$employe->image)}}"  width="100" height="100">
