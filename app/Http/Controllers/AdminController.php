@@ -211,6 +211,19 @@ class AdminController extends Controller
 
     }
 
+    public function view_project($id){
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
+        $view_project = project_management::find($id);
+        $client = client_management::all();
+        $user = User::all();
+        $task = task_management::where('project_id',$id)->get();
+        return view('admin.view_project',compact('view_project','client','user','task'));
+    }
+
+
 
     public function add_employee()
     {
@@ -319,17 +332,7 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'contact' => 'required',
-            'facebook_id' => 'required',
-            'instagram_id' => 'required',
-            'skype_id' => 'required',
-            'telegram_id' => 'required',
-            'upwork_id' => 'required',
-            'project_url' => 'required',
-            'assana' => 'required',
-            'whatsapp' => 'required',
-            
-        ]);
+         ]);
       
         $add_client = new client_management();
         $add_client->name = $request->name;
@@ -370,17 +373,7 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'contact' => 'required',
-            'facebook_id' => 'required',
-            'instagram_id' => 'required',
-            'skype_id' => 'required',
-            'telegram_id' => 'required',
-            'whatsapp' => 'required',
-            'upwork_id' => 'required',
-            'project_url' => 'required',
-            'assana' => 'required',
-            
-        ]);
+          ]);
 
         $id = $request->id;
         $update = client_management::find($id);

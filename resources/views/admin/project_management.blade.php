@@ -64,6 +64,10 @@
                                             <td>{{$project_managements->total_hours}}</td>
                                             <td>{{$project_managements->payment}}</td>
                                            <td> 
+                                           <a href="{{url('admin/view-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-eye"></i>
+                                            </a>
+
                                             <a href="{{url('edit-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                             </a>

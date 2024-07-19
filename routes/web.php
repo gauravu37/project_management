@@ -87,3 +87,4 @@ Route::post('add-task-detail', [AdminController::class, 'add_task_detail']);
 Route::get('delete-task/{id}', [AdminController::class, 'delete_task']);
 Route::get('edit-task/{id}', [AdminController::class, 'edit_task']);
 Route::post('update-task-detail', [AdminController::class, 'update_task_detail']);
+Route::get('admin/view-project/{id}', [AdminController::class, 'view_project']);

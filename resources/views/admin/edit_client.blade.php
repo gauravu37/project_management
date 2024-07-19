@@ -40,18 +40,18 @@
                             <!-- Input Field -->
                             <div class="form-group">
                                 <label for="inputName"> Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" value="{{$editclient->name}}" >
+                                <input type="text" class="form-control" id="inputName" name="name" value="{{$editclient->name}}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputName"> Email</label>
-                                <input type="text" class="form-control" id="inputName" name="email" value="{{$editclient->email}}" >
+                                <input type="text" class="form-control" id="inputName" name="email" value="{{$editclient->email}}" required>
                             </div>
 
 
                             <div class="form-group">
                                 <label for="inputName"> Contact</label>
-                                <input type="text" class="form-control" id="inputName" name="contact" value="{{$editclient->contact}}" >
+                                <input type="text" class="form-control" id="inputName" name="contact" value="{{$editclient->contact}}" required>
                             </div>
 
                             <div class="form-group">

@@ -20,7 +20,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Project Management</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Task Management</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
@@ -30,7 +30,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Project Management <a href="{{url('add-task')}}" class="addproject">Add Task</a></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Task Management <a href="{{url('add-task')}}" class="addproject">Add Task</a></h6>
                            
                         </div>
                         <div class="card-body">
