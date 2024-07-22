@@ -71,9 +71,9 @@
                                 id="timer">00:00:00
                             </div>  -->
                            
-                            <button id="startBtn">Start</button>
+                            <button  id="startBtn">Start</button>
                             <!-- <button id="pauseBtn">Pause</button> -->
-                            <button id="stopBtn">Stop</button>
+                            <button  id="stopBtn">Stop</button>
                             </div>
                         </div>
                       
@@ -123,163 +123,52 @@
 
     <!-- Page level plugins -->
     <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
-    <script>
-    let timerInterval;
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
-    let paused = false;
-    function startTimer() {
-        
-        $.ajaxSetup({
-             headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                    });
-    $.ajax({
-            type: 'POST',
-            url: "{{ url('user/time-start') }}",
-            data: {
-                time: 0
-            },
-            success: function(response) {
-           alert(response);
-            },
-            error: function(error) {
-                console.log(error.responseJSON);
-                alert('Error occurred while sending timer value.');
-            }
-        });
-}
-
-    function pauseTimer() {
-
-    clearInterval(timerInterval);
-    $.ajaxSetup({
-             headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                    });
-    $.ajax({
-            type: 'POST',
-            url: "{{ url('user/time-pause') }}",
-            data: {
-                time: (hours < 10 ? "0" + hours : hours) + ":" +
-                      (minutes < 10 ? "0" + minutes : minutes) + ":" +
-                      (seconds < 10 ? "0" + seconds : seconds)
-            },
-            success: function(response) {
-           alert(response);
-            },
-            error: function(error) {
-                console.log(error.responseJSON);
-                alert('Error occurred while sending timer value.');
-            }
-        });
-
-    paused = true; // Set paused state
-}
-
-    function stopTimer() {
-        
-        clearInterval(timerInterval);
-    $.ajaxSetup({
-             headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                    });
-    $.ajax({
-            type: 'POST',
-            url: "{{ url('user/time-stop') }}",
-            data: {
-                time: (hours < 10 ? "0" + hours : hours) + ":" +
-                      (minutes < 10 ? "0" + minutes : minutes) + ":" +
-                      (seconds < 10 ? "0" + seconds : seconds)
-            },
-            success: function(response) {
-                alert(response);
-                location.reload();
-            },
-            error: function(error) {
-                console.log(error.responseJSON);
-                alert('Error occurred while sending timer value.');
-            }
-        });
-        paused = false;
-        document.getElementById('startBtn').style.display = 'none';
-    document.getElementById('stopBtn').style.display = 'none';
-    document.getElementById('pauseBtn').style.display = 'none';
-
-    }
-
-    function sendTimerToServer() {
-        $.ajaxSetup({
-             headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                    });
-
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('user/attendence') }}",
-            data: {
-                time: (hours < 10 ? "0" + hours : hours) + ":" +
-                      (minutes < 10 ? "0" + minutes : minutes) + ":" +
-                      (seconds < 10 ? "0" + seconds : seconds)
-            },
-            success: function(response) {
-                alert(response);
-                
-            },
-            error: function(error) {
-                console.log(error.responseJSON);
-                alert('Error occurred while sending timer value.');
-            }
-        });
-    }
-
-    document.getElementById('startBtn').addEventListener('click', startTimer);
-    document.getElementById('stopBtn').addEventListener('click', stopTimer);
-    document.getElementById('pauseBtn').addEventListener('click', pauseTimer); // Add this line for pause button
-
-</script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-// Function to reload the page
-function autoReload() {
-    $.ajaxSetup({
-             headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                    });
-    $.ajax({
-            type: 'GET',
-            url: "{{ url('user/get-time') }}",
+$(document).ready(function() {
+    $('#startBtn').click(function() {
+      
+        $.ajax({
+            url: '{{ url('user/time-start') }}',
+            method: 'POST',
             data: {
-               
+                _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-                
-                var mySpan = document.getElementById("totaltime");
-                mySpan.textContent = response;
-               
+                alert(response);
+                // Optionally, update the UI to reflect the change
             },
-            error: function(error) {
-                console.log(error.responseJSON);
-                alert('Error occurred while sending timer value.');
+            error: function(xhr, status, error) {
+                alert('Error changing status');
             }
         });
-
-  
-}
-
-// Reload the page every 10 seconds
-setInterval(autoReload, 5000); // 10 seconds = 10000 milliseconds
+    });
+});
 </script>
+<script>
+$(document).ready(function() {
+    $('#stopBtn').click(function() {
+      
+        $.ajax({
+            url: '{{ url('user/time-stop') }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                alert(response);
+                // Optionally, update the UI to reflect the change
+            },
+            error: function(xhr, status, error) {
+                alert('Error changing status');
+            }
+        });
+    });
+});
+</script>
+    
 
-</body>
-
-</html>
+    

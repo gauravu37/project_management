@@ -173,97 +173,6 @@ class UserController extends Controller
       
     }
 
-    public function gettime()
-    {
-        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
-        $userId = Auth::id();
-        $today = now()->toDateString();
-
-        // Retrieve the latest attendance time record for the current user
-        $time = employee_attendence_time::where('user_id', $userId)
-            ->whereDate('created_at', $today)
-            ->latest()
-            ->first();
-       $start_time = $time->in_time;
-       $time_difference = $currentTime->diff($start_time);
-
-       // Extract hours and minutes
-       $hours = $time_difference->h + ($time_difference->days * 24);
-       $minutes = $time_difference->i;
-       $total_minutes = ($hours * 60) + $minutes;
-
-       // Convert total_minutes to hours and minutes format
-       $total_hours = floor($total_minutes / 60);
-       $total_minutes = $total_minutes % 60;
-       $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
-       $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
-       $totaltime = $formatted_total_hours . ':' . $formatted_total_minutes;
-       echo  $totaltime;
-    }
-
-    public function time_pause()
-    {
-        $currentTime = Date::now(); // No need to format immediately, keep it as a Carbon instance
-        $userId = Auth::id();
-        $today = now()->toDateString();
-
-        // Retrieve the latest attendance time record for the current user
-        $time = employee_attendence_time::where('user_id', $userId)
-            ->whereDate('created_at', $today)
-            ->latest()
-            ->first();
-
-        if ($time) {
-            $start_time = $time->in_time;
-
-            // Calculate time difference
-            $time_difference = $currentTime->diff($start_time);
-
-            // Extract hours and minutes
-            $hours = $time_difference->h + ($time_difference->days * 24);
-            $minutes = $time_difference->i;
-
-            // Calculate total minutes worked
-            $total_minutes = ($hours * 60) + $minutes;
-
-            // Convert total_minutes to hours and minutes format
-            $total_hours = floor($total_minutes / 60);
-            $total_minutes = $total_minutes % 60;
-
-            // Format total_hours and total_minutes
-            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
-            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
-
-            // Update out time and total hours in the attendance record
-            $time->out_time = $currentTime;
-
-            if ($time->total_hours != '0') {
-                list($prev_hours, $prev_minutes) = explode(':', $time->total_hours);
-                $total_hours += (int) $prev_hours;
-                $total_minutes += (int) $prev_minutes;
-            }
-
-            // Adjust hours if minutes exceed 60
-            $total_hours += floor($total_minutes / 60);
-            $total_minutes = $total_minutes % 60;
-
-            $formatted_total_hours = str_pad($total_hours, 2, '0', STR_PAD_LEFT);
-            $formatted_total_minutes = str_pad($total_minutes, 2, '0', STR_PAD_LEFT);
-
-            $time->total_hours = $formatted_total_hours . ':' . $formatted_total_minutes;
-            $time->in_time =  $currentTime;
-            if ($time->save()) {
-                echo "logout successfully";
-            } else {
-                echo "Failed to update attendance record";
-            }
-        } else {
-            echo "No attendance record found for the user";
-        }
-    }
-
-
-
     public function time_stop()
     {
         
@@ -411,9 +320,10 @@ class UserController extends Controller
     public function get_task()
     {
         $userId = Auth::id();
+       
         $task =  DB::table('project_managements')
         ->join('task_managements', 'project_managements.id', '=', 'task_managements.project_id')
-        ->where('project_managements.assign', '=', '2')
+        ->where('task_managements.assign', '=', '2')
         ->select('project_managements.project_name', 'task_managements.*')
         ->get();
        
