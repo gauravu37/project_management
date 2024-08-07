@@ -55,7 +55,8 @@
                                             <td>{{$users->name}}</td>
                                             <td>{{$users->email}}</td>
                                             <td>{{$users->phone}}</td>
-                                            <td> <img src="{{asset('user_profile/'.$users->image)}}"  width="100" height="100"></td>
+                                            <td><img src="{{ $users->image ? asset('user_profile/'.$users->image) : asset('user_profile/download.png') }}" width="50"  alt="User Profile Image">
+                                            </td>
                                            <td> <a href="{{url('edit-employee/'.$users->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                             </a>

@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="inputPassword">Image</label>
                                 <input type="file" class="form-control" id="inputPassword" name="image">
-                                <img src="{{asset('user_profile/'.$employe->image)}}"  width="100" height="100">
+                                <img src="{{ $employe->image ? asset('user_profile/'.$employe->image) : asset('user_profile/download.png') }}" width="100" height="100" alt="User Profile Image">
                             </div>
 
                            

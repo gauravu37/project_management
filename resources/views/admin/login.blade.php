@@ -41,22 +41,20 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
                                     </div>
+                                    @if ($errors->has('emailPassword'))
+                                    <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
+                                    @endif
                                     <form class="user" method="POST" action="{{ route('admin/login') }}">
                                     @csrf
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
-                                                @if ($errors->has('emailPassword'))
-                                <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
-                                @endif
+                                               
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" name="password" placeholder="Password">
-                                                @if ($errors->has('emailPassword'))
-                                <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
-                                @endif
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
