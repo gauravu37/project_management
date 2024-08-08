@@ -15,8 +15,11 @@ class project_management extends Model
         'assign',
         'total_hours',
         'payment',
-        'deadline'
-        
+        'deadline',
+        'upwork_url',
+        'asana_url',
+        'description',
+        'description'
     ];
 
 }

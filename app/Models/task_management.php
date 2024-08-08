@@ -14,7 +14,6 @@ class task_management extends Model
         'task_title',
         'description',
         'total_hours',
-        'logindetail',
         'deadline',
         'status'
       ];

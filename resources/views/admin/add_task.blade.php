@@ -75,12 +75,6 @@
 
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail">Login Detail</label>
-                                <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" style="display: none;"></textarea>
-
-                            </div>
                             
 
                             <!-- Password Field -->

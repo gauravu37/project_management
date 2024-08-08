@@ -45,7 +45,7 @@
 
                             <!-- Email Field -->
                             <div class="form-group">
-                                <label for="inputEmail">Client Name<span style="color:red;"> *</span></label>
+                                <label for="inputEmail">Client Name</label>
                                 <select name="client_name" class="form-control" id="cars" required>
                                     @foreach($client as $clients)
                                         <option value="{{ $clients->id }}" @if($clients->id == $editproject->client_name) selected @endif>
@@ -65,7 +65,29 @@
                                 @endforeach
                                 </select>
                             </div>
+                              <div class="form-group">
+                                <label for="inputEmail">Upwork Url</label>
+                                <input type="text" class="form-control" id="inputName" value="{{$editproject->upwork_url}}" name="upwork_url">
 
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Asana Url</label>
+                                <input type="text" class="form-control" id="inputName" value="{{$editproject->asana_url}}" name="asana_url">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Description</label>
+                                <div id="editor-container" style="height: 200px;"></div>
+                                <textarea id="editor-textarea" name="description" value="{{$editproject->description}}" style="display: none;">{!! $editproject->description !!}</textarea>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Login Detail</label>
+                                <div id="editor-containers" style="height: 200px;"></div>
+                                <textarea id="editor-textareas" name="logindetail" value="{{$editproject->description}}"  style="display: none;">{!! $editproject->logindetail !!}</textarea>
+
+                            </div>
                             <!-- Password Field -->
                             <div class="form-group">
                                 <label for="inputPassword">Total Hours<span style="color:red;"> *</span></label>
@@ -151,7 +173,36 @@
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+    var textarea = document.getElementById('editor-textarea');
+    var editor = new Quill('#editor-container', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editor.root.innerHTML = textarea.value;
+    
+    // Update textarea on editor change
+    editor.on('text-change', function(delta, oldDelta, source) {
+        textarea.value = editor.root.innerHTML;
+    });
+</script>
 
+<script>
+    var textarea = document.getElementById('editor-textareas');
+    var editor = new Quill('#editor-containers', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editor.root.innerHTML = textarea.value;
+    
+    // Update textarea on editor change
+    editor.on('text-change', function(delta, oldDelta, source) {
+        textarea.value = editor.root.innerHTML;
+    });
+</script>
 </body>
 
 </html>

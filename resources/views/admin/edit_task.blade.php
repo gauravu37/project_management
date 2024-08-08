@@ -64,7 +64,7 @@
                                 <input type="text" class="form-control" id="inputName" value="{{$edittask->task_title}}" name="task_title">
 
                             </div>
-
+                          
                             <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
@@ -72,12 +72,7 @@
 
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail">Login Detail</label>
-                                <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" value="{{$edittask->logindetail}}"  style="display: none;">{!! $edittask->logindetail !!}</textarea>
-
-                            </div>
+                           
 
                             <!-- Password Field -->
                             <div class="form-group">

@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('total_hours')->nullable();
             $table->string('payment')->nullable();
             $table->string('deadline')->nullable();
+            $table->string('description')->nullable();
+            $table->string('logindetail')->nullable();
+            $table->string('upwork_url')->nullable();
+            $table->string('asana_url')->nullable();
             $table->timestamps();
         });
     }
