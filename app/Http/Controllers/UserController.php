@@ -323,7 +323,7 @@ class UserController extends Controller
        
         $task =  DB::table('project_managements')
         ->join('task_managements', 'project_managements.id', '=', 'task_managements.project_id')
-        ->where('task_managements.assign', '=', '2')
+        ->where('task_managements.assign', '=', $userId)
         ->select('project_managements.project_name', 'task_managements.*')
         ->get();
        
