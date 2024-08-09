@@ -88,10 +88,31 @@
                                 <label for="inputPassword">Payment</label>
                                 <input type="text" class="form-control" id="inputPassword" name="payment" value="<?php if($view_project->payment){echo $view_project->payment;}?>" placeholder="payment" readonly>
                             </div>
-
+ 
                             <div class="form-group">
                                 <label for="inputPassword">Deadline</label>
                                 <input type="date" class="form-control" id="inputPassword" name="deadline" value="<?php if($view_project->deadline){echo $view_project->deadline;}?>" placeholder="payment" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Upwork Url</label>
+                                <input type="text" class="form-control" id="inputPassword" name="upwork_url" value="<?php if($view_project->upwork_url){echo $view_project->upwork_url;}?>" placeholder="payment" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Asana Url</label>
+                                <input type="text" class="form-control" id="inputPassword" name="asana_url" value="<?php if($view_project->asana_url){echo $view_project->asana_url;}?>" placeholder="payment" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Description</label>
+                                <div id="editor-container" style="height: 200px;"></div>
+                                <textarea id="editor-textarea" name="description" value="<?php if($view_project->description){echo $view_project->description;}?>" placeholder="payment" readonly style="display: none;"></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Login Detail</label>
+                                <div id="editor-containers" style="height: 200px;"></div>
+                                <textarea id="editor-textareas" name="logindetail" value="<?php if($view_project->logindetail){echo $view_project->logindetail;}?>" placeholder="payment" readonly style="display: none;"></textarea>
+
                             </div>
 
 
@@ -200,7 +221,35 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
+    <script>
+    var textarea = document.getElementById('editor-textarea');
+    var editor = new Quill('#editor-container', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editor.root.innerHTML = textarea.value;
+    
+    // Update textarea on editor change
+    editor.on('text-change', function(delta, oldDelta, source) {
+        textarea.value = editor.root.innerHTML;
+    });
+</script>
 
+<script>
+    var textarea = document.getElementById('editor-textareas');
+    var editor = new Quill('#editor-containers', {
+        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+    });
+    
+    // Set initial content if textarea has content
+    editor.root.innerHTML = textarea.value;
+    
+    // Update textarea on editor change
+    editor.on('text-change', function(delta, oldDelta, source) {
+        textarea.value = editor.root.innerHTML;
+    });
+</script>
 </body>
 
 </html>

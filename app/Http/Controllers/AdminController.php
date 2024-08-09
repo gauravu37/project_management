@@ -172,6 +172,10 @@ class AdminController extends Controller
         $add_project->assign = $assigns;
         $add_project->payment = $request->payment;
         $add_project->deadline = $request->deadline;
+        $add_project->description = $request->description;
+        $add_project->logindetail = $request->logindetail;
+        $add_project->upwork_url = $request->upwork_url;
+        $add_project->asana_url = $request->asana_url;
         if($add_project->save()){
             return redirect("project-management")->with('success','Add Project Successfully');
         }
@@ -197,7 +201,7 @@ class AdminController extends Controller
             'assign' => 'required',
             'total_hours' => 'required',
             'payment' => 'required',
-             'deadline' => 'required'
+            'deadline' => 'required'
             
         ]);
         $id = $request->id;
@@ -208,7 +212,10 @@ class AdminController extends Controller
         $update->total_hours = $request->total_hours;
         $update->payment = $request->payment;        
         $update->deadline = $request->deadline;
-
+        $update->description = $request->description;
+        $update->logindetail = $request->logindetail;
+        $update->upwork_url = $request->upwork_url;
+        $update->asana_url = $request->asana_url;
         if($update->save()){
             return redirect("project-management")->with('success','Update Project Successfully');
         }
@@ -443,10 +450,10 @@ class AdminController extends Controller
             'description' => 'required',
             'total_hours' => 'required',
             'deadline' => 'required',
-            'logindetail' => 'required'
+           
             
         ]);
-      
+
         $add_task = new task_management();
         $add_task->project_id = $request->project_name;
         $add_task->assign = $request->assign;
@@ -454,7 +461,7 @@ class AdminController extends Controller
         $add_task->description = $request->description;
         $add_task->total_hours = $request->total_hours;
         $add_task->deadline = $request->deadline;
-        $add_task->logindetail = $request->logindetail;
+        
 
         $add_task->status = '0';
         if($add_task->save()){
@@ -489,7 +496,7 @@ class AdminController extends Controller
             'description' => 'required',
             'total_hours' => 'required',
             'deadline' => 'required',
-            'logindetail' => 'required'
+           
             
         ]);
 
@@ -501,7 +508,7 @@ class AdminController extends Controller
         $update->description = $request->description;
         $update->total_hours = $request->total_hours;
         $update->deadline = $request->deadline;
-        $update->logindetail = $request->logindetail;
+       
         $update->status = '0';
       
         if($update->save()){

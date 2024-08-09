@@ -50,12 +50,7 @@
                        
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail" readonly>Project Login Detail</label>
-                                <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" value="{{$taskdetail->logindetail}}"  style="display: none;" readonly>{!! $taskdetail->logindetail !!}</textarea>
-
-                            </div>
+                       
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="inputEmail" >Task Title</label>
