@@ -104,14 +104,14 @@
                             <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
-                                <textarea id="editor-textarea" name="description" value="{{$view_project->description}}" style="display: none;">{!! $view_project->description !!}</textarea>
+                                <textarea id="editor-textarea" name="description" value="{{$view_project->description}}" style="display: none;" readonly>{!! $view_project->description !!}</textarea>
 
                             </div>
 
                             <div class="form-group">
                                 <label for="inputEmail">Login Detail</label>
                                 <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" value="{{$view_project->description}}"  style="display: none;">{!! $view_project->logindetail !!}</textarea>
+                                <textarea id="editor-textareas" name="logindetail" value="{{$view_project->description}}"  style="display: none;"readonly>{!! $view_project->logindetail !!}</textarea>
 
                             </div>
 
@@ -225,7 +225,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <script>
     var textarea = document.getElementById('editor-textarea');
     var editor = new Quill('#editor-container', {
-        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+        theme: 'snow',
+        readOnly: true   // 'snow' is the built-in theme (other themes are available)
     });
     
     // Set initial content if textarea has content
@@ -240,7 +241,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
     var textarea = document.getElementById('editor-textareas');
     var editor = new Quill('#editor-containers', {
-        theme: 'snow'  // 'snow' is the built-in theme (other themes are available)
+        theme: 'snow',
+        readOnly: true   // 'snow' is the built-in theme (other themes are available)
     });
     
     // Set initial content if textarea has content
