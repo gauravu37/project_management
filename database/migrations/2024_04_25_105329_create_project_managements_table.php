@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('upwork_url')->nullable();
             $table->string('asana_url')->nullable();
             $table->timestamps();
+            
         });
     }
 

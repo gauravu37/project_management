@@ -104,7 +104,6 @@
                                 <input type="date" class="form-control" id="inputPassword" name="deadline" value="<?php if($editproject->deadline){echo $editproject->deadline;}?>" placeholder="payment" required>
                             </div>
 
-
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>

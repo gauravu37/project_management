@@ -16,6 +16,7 @@ class task_management extends Model
         'total_hours',
         'deadline',
         'status'
+        
       ];
 
 }

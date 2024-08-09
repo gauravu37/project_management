@@ -72,8 +72,6 @@
 
                             </div>
 
-                           
-
                             <!-- Password Field -->
                             <div class="form-group">
                                 <label for="inputPassword">Total Hours</label>

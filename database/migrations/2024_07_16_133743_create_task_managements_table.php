@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('total_hours')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
+            
         });
     }
 

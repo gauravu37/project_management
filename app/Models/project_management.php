@@ -20,6 +20,7 @@ class project_management extends Model
         'asana_url',
         'description',
         'description'
+        
     ];
 
 }

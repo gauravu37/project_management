@@ -89,7 +89,7 @@
 
                             </div>
 
-                            <!-- Password Field -->
+                            <!-- -Password Field -->
                             <div class="form-group">
                                 <label for="inputPassword">Total Hours <span style="color:red;"> *</span></label>
                                 <input type="text" class="form-control" id="inputPassword" name="total_hours" placeholder="hours" required>
