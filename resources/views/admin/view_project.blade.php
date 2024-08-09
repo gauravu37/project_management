@@ -104,14 +104,14 @@
                             <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
-                                <textarea id="editor-textarea" name="description" value="<?php if($view_project->description){echo $view_project->description;}?>" placeholder="payment" readonly style="display: none;"></textarea>
+                                <textarea id="editor-textarea" name="description" value="{{$view_project->description}}" style="display: none;">{!! $view_project->description !!}</textarea>
 
                             </div>
 
                             <div class="form-group">
                                 <label for="inputEmail">Login Detail</label>
                                 <div id="editor-containers" style="height: 200px;"></div>
-                                <textarea id="editor-textareas" name="logindetail" value="<?php if($view_project->logindetail){echo $view_project->logindetail;}?>" placeholder="payment" readonly style="display: none;"></textarea>
+                                <textarea id="editor-textareas" name="logindetail" value="{{$view_project->description}}"  style="display: none;">{!! $view_project->logindetail !!}</textarea>
 
                             </div>
 
@@ -221,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>('
     <!-- Page level custom scripts -->
     <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
     var textarea = document.getElementById('editor-textarea');
     var editor = new Quill('#editor-container', {
