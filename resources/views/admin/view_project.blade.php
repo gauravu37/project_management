@@ -122,12 +122,14 @@
                         </div>
 
                         <div id="Tab2" class="tab-content">
-                        <div class="card-body">
-                          @foreach($task as $tasks)
-                            {{$tasks->task_title}}
-                          @endforeach
-                            </div>
-                        </div>
+    <div class="card-body">
+        <ul>
+            @foreach($task as $tasks)
+                <li>{{ $tasks->task_title }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
                     </div>
 
                 </div>
