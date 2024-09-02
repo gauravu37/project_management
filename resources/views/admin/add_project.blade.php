@@ -76,6 +76,25 @@
 
                             </div>
                             <div class="form-group">
+                                <label for="inputEmail">Development Url</label>
+                                <input type="text" class="form-control" id="inputName" value="" name="development_url">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Live Url</label>
+                                <input type="text" class="form-control" id="inputName" value="" name="live_url">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Status</label>
+                                <select class="form-control" id="inputStatus" name="status">
+                                    <option value="1">Not Started</option>
+                                    <option value="2">In Progress</option>
+                                    <option value="3">Testing</option>
+                                    <option value="4">Completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
                                 <textarea id="editor-textarea" name="description" style="display: none;"></textarea>

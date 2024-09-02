@@ -176,6 +176,9 @@ class AdminController extends Controller
         $add_project->logindetail = $request->logindetail;
         $add_project->upwork_url = $request->upwork_url;
         $add_project->asana_url = $request->asana_url;
+        $add_project->development_url = $request->development_url;
+        $add_project->live_url = $request->live_url;
+        $add_project->status = $request->status;
         if($add_project->save()){
             return redirect("project-management")->with('success','Add Project Successfully');
         }
@@ -216,6 +219,9 @@ class AdminController extends Controller
         $update->logindetail = $request->logindetail;
         $update->upwork_url = $request->upwork_url;
         $update->asana_url = $request->asana_url;
+        $update->development_url = $request->development_url;
+        $update->live_url = $request->live_url;
+        $update->status = $request->status;
         if($update->save()){
             return redirect("project-management")->with('success','Update Project Successfully');
         }

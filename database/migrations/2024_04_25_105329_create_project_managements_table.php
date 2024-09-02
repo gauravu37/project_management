@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('logindetail')->nullable();
             $table->string('upwork_url')->nullable();
             $table->string('asana_url')->nullable();
+            $table->string('development_url')->nullable();
+            $table->string('live_url')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             
         });

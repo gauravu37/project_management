@@ -26,14 +26,14 @@ Route::post('socialLogin', [RegisterController::class, 'socialLogin']);
 
 
 Route::post('register', [RegisterController::class, 'register']);
-Route::post('editProfile', [RegisterController::class, 'editProfile']);
+Route::post('profile_update', [RegisterController::class, 'profile_update']);
 Route::post('login', [RegisterController::class, 'login']);
 Route::post('forgot-password', [RegisterController::class, 'forgetPassword']);
-Route::get('loginbyphone/{phone}', [RegisterController::class, 'loginbyphone']);
-Route::get('getprofile/{phone}', [RegisterController::class, 'getProfile']);
-Route::get('getprofileid/{id}', [RegisterController::class, 'getProfileID']);
+Route::post('add_employee', [RegisterController::class, 'add_employee_detail']);
+Route::post('update_employee', [RegisterController::class, 'update_employee']);
+Route::get('delete_employee/{id}', [RegisterController::class, 'delete_employee']);
 	
-Route::post('editSettings', [RegisterController::class, 'editSettings']);
+Route::post('getProfile', [RegisterController::class, 'getProfile']);
 Route::post('friendRequest', [RegisterController::class, 'friendRequest']);
 Route::post('updatefriendRequest', [RegisterController::class, 'updatefriendRequest']);
 

@@ -102,6 +102,26 @@
                                 <input type="text" class="form-control" id="inputPassword" name="asana_url" value="<?php if($view_project->asana_url){echo $view_project->asana_url;}?>" placeholder="payment" readonly>
                             </div>
                             <div class="form-group">
+                                <label for="inputEmail">Development Url</label>
+                                <input type="text" class="form-control" id="inputName" value="<?php if($view_project->development_url){echo $view_project->development_url;}?>" name="development_url" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Live Url</label>
+                                <input type="text" class="form-control" id="inputName" value="<?php if($view_project->live_url){echo $view_project->live_url;}?>" name="live_url" readonly>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputStatus">Status</label>
+                                <select class="form-control" id="inputStatus" name="status" disabled>
+                                    <option value="1" {{ $view_project->status == 1 ? 'selected' : '' }}>Not Started</option>
+                                    <option value="2" {{ $view_project->status == 2 ? 'selected' : '' }}>In Progress</option>
+                                    <option value="3" {{ $view_project->status == 3 ? 'selected' : '' }}>Testing</option>
+                                    <option value="4" {{ $view_project->status == 4 ? 'selected' : '' }}>Completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
                                 <textarea id="editor-textarea" name="description" value="{{$view_project->description}}" style="display: none;" readonly>{!! $view_project->description !!}</textarea>

@@ -75,6 +75,26 @@
                                 <input type="text" class="form-control" id="inputName" value="{{$editproject->asana_url}}" name="asana_url">
 
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Development Url</label>
+                                <input type="text" class="form-control" id="inputName" value="{{$editproject->development_url}}" name="development_url">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Live Url</label>
+                                <input type="text" class="form-control" id="inputName" value="{{$editproject->live_url}}" name="live_url">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Status</label>
+                                <select class="form-control" id="inputStatus" name="status">
+                                    <option value="1" {{ $editproject->status == 1 ? 'selected' : '' }}>Not Started</option>
+                                    <option value="2" {{ $editproject->status == 2 ? 'selected' : '' }}>In Progress</option>
+                                    <option value="3" {{ $editproject->status == 3 ? 'selected' : '' }}>Testing</option>
+                                    <option value="4" {{ $editproject->status == 4 ? 'selected' : '' }}>Completed</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="inputEmail">Description</label>
                                 <div id="editor-container" style="height: 200px;"></div>
