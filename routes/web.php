@@ -67,6 +67,14 @@ Route::get('edit-project/{id}', [AdminController::class, 'edit_project']);
 Route::post('update-project', [AdminController::class, 'updateproject']);
 Route::get('delete-project/{id}', [AdminController::class, 'delete_project']);
 
+Route::get('finance-management', [AdminController::class, 'finance_management'])->name('finance-management');
+Route::get('add-finance', [AdminController::class, 'add_finance']);
+Route::post('add', [AdminController::class, 'addfinance']);
+Route::get('edit-finance/{id}', [AdminController::class, 'edit_finance']);
+Route::post('update-finance', [AdminController::class, 'updatefinance']);
+Route::get('delete-finance/{id}', [AdminController::class, 'delete_finance']);
+Route::get('admin/view-finance/{id}', [AdminController::class, 'view_finance']);
+
 Route::get('add-employee', [AdminController::class, 'add_employee']);
 Route::post('add-employee-detail', [AdminController::class, 'add_employee_detail']);
 Route::get('delete-employee/{id}', [AdminController::class, 'delete_employee']);

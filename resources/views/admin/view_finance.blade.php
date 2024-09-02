@@ -20,87 +20,80 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Add Task</h1>
+                    <h1 class="h3 mb-2 text-gray-800">View Finance</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add Task</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">View Finance</h6>
                            
                         </div>
                         <div class="card-body">
-                        <form action="{{url('add-task-detail')}}" method="POST">
-                            @csrf <!-- CSRF Protection -->
+                        <form action="#" method="POST">
+    @csrf <!-- CSRF Protection -->
+    @csrf
+  
+   
+    <!-- Date Field -->
+    <div class="form-group">
+        <label for="inputPassword">Date </label>
+        <input type="date" class="form-control" id="inputPassword" name="date" value="{{$updatefinance->date}}" placeholder="Deadline" readonly>
+    </div>
 
-                            <!-- Input Field -->
-                            <div class="form-group">
-                                <label for="inputName">Project Name</label>
-                                <select name="project_name" class="form-control" id="cars">
-                                @foreach($project as $projects)
-                                <option value="{{$projects->id}}">{{$projects->project_name}}</option>
-                                @endforeach
-                                </select>                            
-                            </div>
+    <!-- Project Name Field -->
+    <div class="form-group">
+        <label for="inputEmail">Project Name </label>
+        @php 
+        $projectName = App\Models\project_management::where(['id' => $updatefinance->project_name])->first();
+        @endphp
+        <input type="text" class="form-control" id="inputPassword" name="date" value="{{$projectName->project_name}}" placeholder="Deadline" readonly>
+    </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail">Assign <span style="color:red;"> *</span></label>
-                                <select id="choices-multiple-remove-button" name="assign" class="form-control inpt" id="cars">
-                                @foreach($user as $users)
-                                    @php
-                                     $designation = App\Models\designation::where(['id' => $users->designation])->first();
-                                     @endphp
-                                   
-                                <option value="{{$users->id}}">{{$users->name}}({{$designation->designation_name}})</option>
-                                @endforeach
-                                </select>
-                            </div>
+    <!-- Amount Field -->
+    <div class="form-group">
+        <label for="inputEmail">Amount</label>
+        <input type="text" class="form-control" id="amount" name="amount" value="{{$updatefinance->amount}}" readonly>
+    </div>
 
+    <!-- TDS Deduct Field -->
+    <div class="form-group">
+    <label for="tds_deduct">TDS Deduct</label>
+    <input type="checkbox" class="form-controls" id="tds_deduct" name="tds_deduct" 
+           {{ $updatefinance->tds_deduct ? 'checked' : '' }}>
+</div>
 
-                            <!-- Email Field -->
-                            <div class="form-group">
-                                <label for="inputEmail">Task Title</label>
-                                <input type="text" class="form-control" id="inputName" name="task_title">
+<div class="form-group">
+    <label for="gst_recieved">GST Received</label>
+    <input type="checkbox" class="form-controls" id="gst_recieved" name="gst_recieved" 
+           {{ $updatefinance->gst_recieved ? 'checked' : '' }}>
+</div>
 
-                            </div>
+    <!-- Actual Amount Field -->
+    <div class="form-group">
+        <label for="inputEmail">Actual Amount</label>
+        <input type="text" class="form-control" id="actual_amount" name="actual_amount" 
+               value="{{$updatefinance->actual_amount}}" readonly>
+    </div>
 
-                            <div class="form-group">
-                                <label for="inputEmail">Description</label>
-                                <div id="editor-container" style="height: 200px;"></div>
-                                <textarea id="editor-textarea" name="description" style="display: none;"></textarea>
+    <!-- Invoice Number Field -->
+    <div class="form-group">
+        <label for="inputEmail">Invoice Number </label>
+        <input type="text" class="form-control" id="inputName" name="invoice_number" value="{{$updatefinance->invoice_number}}" readonly>
+    </div>
 
-                            </div>
+    <!-- Invoice Amount Field -->
+    <div class="form-group">
+        <label for="inputEmail">Invoice Amount</label>
+        <input type="text" class="form-control" id="inputName" name="invoice_amount" value="{{$updatefinance->invoice_amount}}" readonly>
+    </div>
 
-                            <!-- Password Field -->
-                            <div class="form-group">
-                                <label for="inputPassword">Total Hours</label>
-                                <input type="text" class="form-control" id="inputPassword" name="total_hours" placeholder="hours">
-                            </div>
+</form>
 
-                            
-
-                            <div class="form-group">
-                                <label for="inputPassword">Deadline</label>
-                                <input type="date" class="form-control" id="inputPassword" name="deadline" placeholder="Deadline">
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
                         </div>
                     </div>
 
@@ -108,7 +101,7 @@
                 <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Main Content --->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -150,6 +143,18 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+ <script>
+    $(document).ready(function() {
+        $('#tds_deduct').prop('disabled', true);
+        $('#gst_recieved').prop('disabled', true);
+    });
+</script>
+    
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>

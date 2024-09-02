@@ -13,6 +13,7 @@ use App\Models\employee_attendence_time;
 use App\Models\project_management;
 use App\Models\client_management;
 use App\Models\task_management;
+use App\Models\finance_management;
 use App\Models\designation;
 
 class AdminController extends Controller
@@ -238,6 +239,113 @@ class AdminController extends Controller
         $user = User::all();
         $task = task_management::where('project_id',$id)->get();
         return view('admin.view_project',compact('view_project','client','user','task'));
+    }
+    public function finance_management()
+    {
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
+        $finance_management = finance_management::all();
+        return view('admin.finance_management',compact('finance_management'));
+    }
+    public function delete_finance($id){
+        $delete = finance_management::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success','Delete Finance Successfully');
+    }
+
+    public function add_finance()
+    {
+        if (Session::get('role') =='') {
+        // Session variable does not exist, redirect to login route
+        return redirect()->route('admin');
+    }
+        $project = project_management::all();
+   
+        return view('admin.add_finance',compact('project'));
+    }
+
+    public function addfinance(Request $request)
+    {
+       
+       
+        $validatedData = $request->validate([
+            'project_name' => 'required',
+            'date' => 'required',
+            'amount' => 'required',
+            'invoice_number' => 'required',
+            'invoice_amount' => 'required'           
+            
+        ]);
+
+     
+
+        $add_finance = new finance_management();
+        $add_finance->project_name = $request->project_name;
+        $add_finance->date = $request->date;
+        $add_finance->amount = $request->amount;
+        $add_finance->actual_amount = $request->actual_amount;
+        $add_finance->invoice_number = $request->invoice_number;
+        $add_finance->invoice_amount = $request->invoice_amount;
+        $add_finance->tds_deduct = $request->tds_deduct;
+        $add_finance->gst_recieved = $request->gst_recieved;
+        if($add_finance->save()){
+            return redirect("finance-management")->with('success','Add Finance Successfully');
+        }
+
+    }
+
+    public function edit_finance($id){
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
+        $updatefinance = finance_management::find($id);
+        $project = project_management::all();
+
+        return view('admin.edit_finance',compact('updatefinance','project'));
+    }
+
+    public function updatefinance(Request $request)
+    {
+      //return $request->all();
+        $validatedData = $request->validate([
+            'project_name' => 'required',
+            'date' => 'required',
+            'amount' => 'required',
+            'invoice_number' => 'required',
+            'invoice_amount' => 'required'           
+            
+        ]);
+
+     
+   // print_r($request);die;
+        $id = $request->id;
+        $update_finance = finance_management::find($id);
+       $update_finance->project_name = $request->project_name;
+        $update_finance->date = $request->date;
+        $update_finance->amount = $request->amount;
+        $update_finance->actual_amount = $request->actual_amount;
+        $update_finance->invoice_number = $request->invoice_number;
+        $update_finance->invoice_amount = $request->invoice_amount;
+        $update_finance->tds_deduct = $request->tds_deduct;
+        $update_finance->gst_recieved = $request->gst_recieved;
+        if($update_finance->save()){
+            return redirect("finance-management")->with('success','Update Finance Successfully');
+        }
+
+    }
+
+    public function view_finance($id){
+        if (Session::get('role') =='') {
+            // Session variable does not exist, redirect to login route
+            return redirect()->route('admin');
+        }
+        $updatefinance = finance_management::find($id);
+        $project = project_management::all();
+       
+        return view('admin.view_finance',compact('project','updatefinance'));
     }
 
 

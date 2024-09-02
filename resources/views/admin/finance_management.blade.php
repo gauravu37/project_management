@@ -6,49 +6,73 @@
 </head>
 
 @include('layout.header')
-
-                <!-- Begin Page Contentt -->
+<style>
+    a.addproject {
+  float: right;
+  background-color: #4e73df;
+  padding: 10px;
+  border-radius: 19px;
+  color: white;
+  font-weight: 800;
+}
+</style>
+                <!-- Begin Page Contentt --->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Employee Work Time</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Finance Management</h1>
                     <p class="mb-4"></p>
-
+                    @if (session()->has('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Employee Work Time</h6>
+                    <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Finance Table<a href="{{url('add-finance')}}" class="addproject">Add Finance</a></h6>
                         </div>
-                          <div class="card-body">
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
-                                            <th>Name</th>
-                                            <th>Total Hours</th>
-                                            <th>In Time</th>
-                                            <th>Out Time</th>
-                                           
+                                            <th>Project Name</th>
+                                            <th>Amount</th>
+                                            <th>Date</th>
+                                            
+                                            <th>Action</th>
                                          </tr>
                                     </thead>
-                                    
+                                   
                                     <tbody>
                                        @php $i=0; @endphp
-                                        @foreach($employee_time as $employee_times) 
+                                        @foreach($finance_management as $finance_managements) 
                                         @php $i++; @endphp
                                        <tr>
                                             <td>{{$i}}</td>
-                                        @php $userdetail = App\Models\User::where(['id' => $employee_times->user_id])->first(); @endphp
-                                            <td>{{$userdetail->name}}</td>
-                                            <td>{{$employee_times->total_hours}}</td>
-                                            <td>{{$employee_times->in_time}}</td>
-                                            @if($employee_times->total_hours != '0')
-                                            <td>{{$employee_times->out_time}}</td>
-                                            @else
-                                            <td>--</td>
-                                            @endif
+                                            @php 
+                                            $projectName = App\Models\project_management::where(['id' => $finance_managements->project_name])->first();
+                                            @endphp
+                                            <td>{{$projectName->project_name}}</td>
                                           
+
+
+                                            <td>{{$finance_managements->amount}}</td>
+                                            <td>{{$finance_managements->date}}</td>
+                                           <td> 
+                                           <a href="{{url('admin/view-finance/'.$finance_managements->id)}}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-eye"></i>
+                                            </a>
+
+                                            <a href="{{url('edit-finance/'.$finance_managements->id)}}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{url('delete-finance/'.$finance_managements->id)}}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
                                         </tr>
                                        @endforeach 
                                     </tbody>

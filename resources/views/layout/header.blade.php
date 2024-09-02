@@ -74,6 +74,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{route('finance-management')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Finance Management</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{route('task-management')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Task Management</span></a>
