@@ -152,7 +152,7 @@ class AdminController extends Controller
 
     public function addproject(Request $request)
     {
-       
+       //return $request->all();die;
         $validatedData = $request->validate([
             'project_name' => 'required',
             'client_name' => 'required',

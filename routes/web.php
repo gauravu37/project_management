@@ -62,7 +62,7 @@ Route::get('admin-signout', [AdminController::class, 'signOut'])->name('admin-si
 Route::post('leave/reject', [AdminController::class, 'rejectleave'])->name('leave/reject');
 Route::get('project-management', [AdminController::class, 'project_management'])->name('project-management');
 Route::get('add-project', [AdminController::class, 'add_project']);
-Route::post('add', [AdminController::class, 'addproject']);
+Route::post('addproject', [AdminController::class, 'addproject']);
 Route::get('edit-project/{id}', [AdminController::class, 'edit_project']);
 Route::post('update-project', [AdminController::class, 'updateproject']);
 Route::get('delete-project/{id}', [AdminController::class, 'delete_project']);

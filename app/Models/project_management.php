@@ -16,12 +16,14 @@ class project_management extends Model
         'total_hours',
         'payment',
         'deadline',
+        'description',
+        'logindetail',
         'upwork_url',
         'asana_url',
         'development_url',
         'live_url',
-        'description',
-        'logindetail'
+        'status'
+        
         
     ];
 

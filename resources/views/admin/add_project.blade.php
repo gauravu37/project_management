@@ -34,7 +34,7 @@
                            
                         </div>
                         <div class="card-body">
-                        <form action="{{url('add')}}" method="POST">
+                        <form action="{{url('addproject')}}" method="POST">
                             @csrf <!-- CSRF Protection -->
 
                             <!-- Input Field -->
@@ -181,7 +181,6 @@
 
 
 
-    <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
