@@ -42,6 +42,7 @@
                                             <th>Project Name</th>
                                             <th>Client Name</th>
                                             <th>Total Hours</th>
+                                            <th>Pending Payment</th>
                                             <th>Payment</th>
                                             <th>Action</th>
                                          </tr>
@@ -56,13 +57,18 @@
                                             <td>{{$project_managements->project_name}}</td>
                                             @php 
                                             $client = App\Models\client_management::where(['id' => $project_managements->client_name])->first();
+                                              $finance = App\Models\finance_management::where('project_name', $project_managements->id)->sum('amount');
+                                              $pendingAmount = $project_managements->payment - $finance;
                                             @endphp
                                             
                                             <td>{{$client->name}}</td>
 
-
+                                           
                                             <td>{{$project_managements->total_hours}}</td>
-                                            <td>{{$project_managements->payment}}</td>
+                                            <td>{{$pendingAmount}}</td> 
+                                             <td>{{$project_managements->payment}}</td>
+                                           
+                                            
                                            <td> 
                                            <a href="{{url('admin/view-project/'.$project_managements->id)}}" class="btn btn-info btn-circle">
                                             <i class="fas fa-eye"></i>
