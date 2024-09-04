@@ -23,9 +23,18 @@
                     <h1 class="h3 mb-2 text-gray-800">Update Project</h1>
                     <p class="mb-4"></p>
                     @if (session()->has('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success" id="success-alert">
         {{ session('success') }}
     </div>
+    
+    <script>
+        setTimeout(function() {
+            let successAlert = document.getElementById('success-alert');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 10000); // 10 seconds delay before hiding the alert
+    </script>
 @endif
                     <!-- DataTales Example --->
                     <div class="card shadow mb-4">
@@ -176,7 +185,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

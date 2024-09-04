@@ -578,3 +578,12 @@
         }
     }
 </script>
+<script>
+        setTimeout(function() {
+            let successAlert = document.getElementById('alert-success');
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 5000); // 10 seconds delay before hiding the alert
+    </script>
+
